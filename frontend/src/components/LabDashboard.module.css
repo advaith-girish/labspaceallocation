@@ -1,0 +1,161 @@
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .sidebar {
+    width: 280px;
+    background: #2c3e50;
+    padding: 2rem;
+    color: white;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    color: #ecf0f1;
+    font-weight: 600;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .menuItem {
+    padding: 1rem;
+    border: none;
+    background: none;
+    color: #bdc3c7;
+    text-align: left;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+  }
+  
+  .menuItem:hover {
+    background: #34495e;
+    color: #ecf0f1;
+  }
+  
+  .active {
+    background: #34495e !important;
+    color: #ecf0f1 !important;
+    font-weight: 500;
+  }
+  
+  .logout {
+    margin-top: 2rem;
+    color: #e74c3c !important;
+  }
+  
+  .mainContent {
+    flex: 1;
+    padding: 2rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin: 0;
+  }
+  
+  .profileSection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .profileBadge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #3498db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: white;
+  }
+  
+  .profileSection span {
+    font-size: 1rem;
+    color: #2c3e50;
+  }
+  
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .labGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
+  }
+  
+  .labCard {
+    border: 1px solid #ccc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  .labCard h3 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin: 0 0 1rem 0;
+  }
+  
+  .labCard p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0.5rem 0;
+  }
+  
+  .secondaryButton {
+    background: none;
+    border: 2px solid #3498db;
+    color: #3498db;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 9rem;
+    height: 5rem;
+    margin: 0 2rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+  
+  .secondaryButton:hover {
+    background: #3498db;
+    color: white;
+  }
+  
+  .totalStats {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .totalStats h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin: 0 0 1rem 0;
+  }
