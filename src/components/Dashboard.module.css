@@ -1,0 +1,145 @@
+.container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .sidebar {
+    width: 280px;
+    background: #2c3e50;
+    padding: 2rem;
+    color: white;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    color: #ecf0f1;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .menuItem {
+    padding: 1rem;
+    border: none;
+    background: none;
+    color: #bdc3c7;
+    text-align: left;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .menuItem:hover {
+    background: #34495e;
+    color: #ecf0f1;
+  }
+  
+  .active {
+    background: #34495e !important;
+    color: #ecf0f1 !important;
+    font-weight: 500;
+  }
+  
+  .logout {
+    margin-top: 2rem;
+    color: #e74c3c !important;
+  }
+  
+  .mainContent {
+    flex: 1;
+    padding: 2rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .profileSection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .profileBadge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #3498db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+  
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .layoutHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .primaryButton {
+    background: #3498db;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .secondaryButton {
+    background: none;
+    border: 2px solid #3498db;
+    color: #3498db;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 2rem;
+  }
+  
+  .layoutGrid {
+    display: grid;
+    gap: 20px; 
+  }
+  
+  .layoutCard {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  
+  .cardActions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+  
+  .iconButton {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.4rem;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  
+  .iconButton:hover {
+    background: #f0f0f0;
+  }
