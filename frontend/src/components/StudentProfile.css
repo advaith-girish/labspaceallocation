@@ -1,51 +1,74 @@
 
-  .container {
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-  }
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  .content {
-    flex: 1;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  
-  .pageTitle {
-    font-size: 2.5rem;  
-    font-weight: bolder;   
-    font-family: 'Georgia', 'Times New Roman', serif; 
-    text-align: center;
-  }
-  
-  
-  
-  
-  .profileContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    height: 60vh; 
-    padding: 0 5rem; 
-  }
-  
-  
-  .allocationBox {
-    width: 300px;
-    background: #bdbcbc;
-    padding: 1.5rem;
-    text-align: left;
-    border-radius: 10px;
-    height: fit-content;
-  }
-  
-  
-  .detailsBox {
-    width: 250px;
-    background: #ffffff;
-    padding: 1.5rem;
-    text-align: left;
-    border-radius: 10px;
-    height: fit-content;
-  }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.pageTitle {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  color: #2c3e50;
+  margin-bottom: 1.5rem; 
+  margin-top: -2rem; 
+}
+
+
+.profileWrapper {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: -1rem; 
+}
+
+
+.card {
+  width: 320px;
+  background: #ffffff;
+  padding: 1.8rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+
+.allocationBox {
+  border-left: 6px solid #3498db;
+}
+
+
+.detailsBox {
+  border-left: 6px solid #2ecc71;
+}
+
+
+h3 {
+  color: #34495e;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1rem;
+  color: #555;
+  margin: 0.5rem 0;
+}
