@@ -22,7 +22,7 @@ const SeatBookForm = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerBook}>
       {/* Form */}
       <div className={styles.formBox}>
         {/* Name Input */}

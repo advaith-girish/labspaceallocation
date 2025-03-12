@@ -1,7 +1,7 @@
 /* Form.module.css */
 
 /* Container */
-.container {
+.containerBook {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +10,32 @@
     padding: 2rem;
   }
   
-  /* Form Box */
+  /* Form Box *//* Form Popup Container */
+.containerBook {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Form Box */
+.formBox {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: left;
+}
+
+/* Rest of the styles remain unchanged */
+
   .formBox {
     background: white;
     padding: 2.5rem;
