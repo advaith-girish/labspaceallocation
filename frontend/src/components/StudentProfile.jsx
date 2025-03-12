@@ -3,7 +3,7 @@ import "./StudentProfile.css";
 
 function StudentProfile() {
   return (
-    <div className="container">
+    <div className="containerProfile">
       <div className="content">
         <h1 className="pageTitle">STUDENT PROFILE</h1>
 

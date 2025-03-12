@@ -1,17 +1,4 @@
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-
-.container {
+.containerProfile {
   display: flex;
   flex-direction: column;
   align-items: center;
