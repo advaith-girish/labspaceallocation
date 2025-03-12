@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard.jsx'
 import Labs from './components/Labs.jsx'
 import Login from './components/Login.jsx'
 import SeatBookForm from './components/SeatBookForm.jsx'
+import StudentProfile from './components/StudentProfile.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/labs" element={<Labs/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/book" element={<SeatBookForm/>} />
+        <Route path="/profile" element={<StudentProfile/>} />
       </Routes>
     </Router>
   </StrictMode>,
