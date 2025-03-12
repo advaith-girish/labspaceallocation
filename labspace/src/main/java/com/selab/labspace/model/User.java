@@ -19,13 +19,15 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role; // ADMIN, LAB_ADMIN, STUDENT
 
-    @OneToMany(mappedBy = "admin")
-    @JsonManagedReference
-    private Set<Lab> managedLabs; // If LAB_ADMIN, manages multiple labs
+    // If LAB_ADMIN, manages multiple labs
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    @JsonManagedReference("user-labs") // ✅ Matches @JsonBackReference("user-labs") in Lab
+    private Set<Lab> managedLabs;
 
-    @OneToOne(mappedBy = "assignedUser")
-    @JsonManagedReference
-    private Seat assignedSeat; // If STUDENT, assigned to a seat
+    // If STUDENT, assigned to a seat
+    @OneToOne(mappedBy = "assignedUser", cascade = CascadeType.ALL)
+    @JsonManagedReference("user-seat") // ✅ Matches @JsonBackReference("user-seat") in Seat
+    private Seat assignedSeat;
 
     public User() {}
 

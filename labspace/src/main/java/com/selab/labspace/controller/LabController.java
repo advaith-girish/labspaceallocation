@@ -4,6 +4,8 @@ import com.selab.labspace.model.Lab;
 import com.selab.labspace.model.User;
 import com.selab.labspace.service.LabService;
 import com.selab.labspace.service.UserService;
+
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +30,13 @@ public class LabController {
         List<Lab> labs = labService.getAllLabs();
         return ResponseEntity.ok(labs);
     }
+
+    @PutMapping("/test")
+public ResponseEntity<String> testEndpoint(@RequestBody String requestBody) {
+    System.out.println("Received request body: " + requestBody);
+    return ResponseEntity.ok("Request received: " + requestBody);
+    
+}
 
     // ✅ Get lab by ID
     @GetMapping("/{labId}")
@@ -58,7 +67,7 @@ public class LabController {
     }
 
     // ✅ Update lab details (Super Admin & Lab Admin)
-    @PutMapping("/{labId}")
+    @PutMapping(value = "/{labId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Lab> updateLab(@PathVariable Long labId, @RequestBody Lab labDetails) {
         Optional<Lab> labOpt = labService.getLabById(labId);
         if (labOpt.isPresent()) {

@@ -20,8 +20,9 @@ public class UserController {
     }
 
     // ✅ Register a new user (should come before the more general endpoints)
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/register", consumes = {"application/json"})
     public ResponseEntity<User> registerUser(@RequestBody User user) {
+        System.out.println("Registering user: " + user);
         User createdUser = userService.createUser(user);
         return ResponseEntity.ok(createdUser);
     }
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     // ✅ Update a user's details
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = {"application/json"})
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         User updatedUser = userService.updateUser(id, userDetails);
         return ResponseEntity.ok(updatedUser);

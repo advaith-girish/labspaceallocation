@@ -29,6 +29,7 @@ public class LabService {
         return labRepository.save(lab);
     }
 
+
     public Lab assignLabAdmin(Lab lab, User admin) {
         lab.setAdmin(admin);
         return labRepository.save(lab);

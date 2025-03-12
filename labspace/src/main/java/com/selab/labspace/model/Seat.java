@@ -1,7 +1,7 @@
 package com.selab.labspace.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+// import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -16,14 +16,13 @@ public class Seat {
     private String seatNumber; // Example: "A1", "B2" etc.
 
     @ManyToOne
-    @JsonIgnore // This prevents infinite recursion
-    @JsonBackReference
-    @JoinColumn(name = "lab_id")
+    @JoinColumn(name = "lab_id", nullable = false)
+    @JsonBackReference("lab-seats")
     private Lab lab;
 
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
-    @JsonBackReference
+    @JsonBackReference("user-seat")
     private User assignedUser;
 
     public Seat() {}

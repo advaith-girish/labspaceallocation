@@ -48,6 +48,7 @@
 package com.selab.labspace.model;
 
 import jakarta.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -60,17 +61,21 @@ public class Lab {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
     private String location;
 
-    @OneToMany(mappedBy = "lab", cascade = CascadeType.ALL)
-    @JsonManagedReference // Marks this side as the "parent"
-    private Set<Seat> seats;
+    // One Lab has many Seats
+    @OneToMany(mappedBy = "lab", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("lab-seats") // Matches @JsonBackReference in Seat
+    private Set<Seat> seats = new HashSet<>();
 
+    // Many Labs can be managed by one User (Admin)
     @ManyToOne
-    @JoinColumn(name = "admin_id")
-    @JsonBackReference
-    private User admin; // Lab Admin managing the lab
+    @JoinColumn(name = "admin_id", nullable = false) // Ensures Admin is always assigned
+    @JsonBackReference("user-labs") 
+    private User admin; 
 
     public Lab() {}
 
@@ -96,3 +101,4 @@ public class Lab {
     public User getAdmin() { return admin; }
     public void setAdmin(User admin) { this.admin = admin; }
 }
+
