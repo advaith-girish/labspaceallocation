@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Dashboard.module.css';
 import Sidebar from './Sidebar';
+import LabLayout from './LabLayout'; // Import the LabLayout component
 
 const Dashboard = () => {
   const [activeMenu, setActiveMenu] = useState('LABLAYOUT');
@@ -8,7 +9,7 @@ const Dashboard = () => {
 
   return (
     <div className={styles.container}>
-      <Sidebar/>
+      <Sidebar />
 
       <main className={styles.mainContent}>
         <header className={styles.header}>
@@ -30,9 +31,12 @@ const Dashboard = () => {
             
             <div className={styles.layoutGrid}>
               {layouts.map((layout, index) => (
-                <div key={index} className={styles.layoutCard} >
+                <div key={index} className={styles.layoutCard}>
                   <h3>{layout}</h3>
-                  <img src="src/assets/roomlayout.png" width={600} height={650} alt="" />
+                  
+                  {/* Replace Image with LabLayout Component */}
+                  <LabLayout /> 
+
                   <div className={styles.cardActions}>
                     {/* <button className={styles.iconButton}>📊</button> */}
                     {/* <button className={styles.iconButton}>✏️</button> */}
