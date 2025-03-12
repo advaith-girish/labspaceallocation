@@ -3,6 +3,8 @@ package com.selab.labspace.model;
 import jakarta.persistence.*;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -10,28 +12,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
-
-    @Column(unique = true, nullable = false)
     private String email;
-
-    @Column(nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;  // Role: ADMIN, LAB_ADMIN, or STUDENT
+    private Role role; // ADMIN, LAB_ADMIN, STUDENT
 
-    // Lab Admin: Can manage multiple labs
-    @OneToMany(mappedBy = "labAdmin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Lab> managedLabs;
+    @OneToMany(mappedBy = "admin")
+    @JsonManagedReference
+    private Set<Lab> managedLabs; // If LAB_ADMIN, manages multiple labs
 
-    // Student: Assigned a single seat
-    @OneToOne(mappedBy = "assignedUser", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Seat assignedSeat;
+    @OneToOne(mappedBy = "assignedUser")
+    @JsonManagedReference
+    private Seat assignedSeat; // If STUDENT, assigned to a seat
 
-    // Constructors
     public User() {}
 
     public User(String name, String email, String password, Role role) {

@@ -60,12 +60,20 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Oracle JDBC Driver -->
+        <!-- Oracle JDBC Driver 
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>19.8.0.0</version>
-        </dependency>
+        </dependency> -->
+
+        <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.33</version>
+    <scope>runtime</scope>
+</dependency>
+
 
         <!-- Jakarta Persistence API -->
         <dependency>

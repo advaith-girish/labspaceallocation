@@ -14,3 +14,6 @@ public class LabspaceApplication {
         SpringApplication.run(LabspaceApplication.class, args);
     }
 }
+
+//mvn clean install - to build the code
+//mvn spring-boot:run  - to run the code

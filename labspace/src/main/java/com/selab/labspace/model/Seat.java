@@ -1,5 +1,8 @@
 package com.selab.labspace.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -9,26 +12,24 @@ public class Seat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private int rowNumber;
-
-    @Column(nullable = false)
-    private int columnNumber;
+    @Column(name = "seat_number")
+    private String seatNumber; // Example: "A1", "B2" etc.
 
     @ManyToOne
-    @JoinColumn(name = "lab_id", nullable = false)
-    private Lab lab; // Seat belongs to a specific lab
+    @JsonIgnore // This prevents infinite recursion
+    @JsonBackReference
+    @JoinColumn(name = "lab_id")
+    private Lab lab;
 
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
-    private User assignedUser; // Student assigned to this seat
+    @JsonBackReference
+    private User assignedUser;
 
-    // Constructors
     public Seat() {}
 
-    public Seat(int rowNumber, int columnNumber, Lab lab) {
-        this.rowNumber = rowNumber;
-        this.columnNumber = columnNumber;
+    public Seat(String seatNumber, Lab lab) {
+        this.seatNumber = seatNumber;
         this.lab = lab;
     }
 
@@ -36,11 +37,8 @@ public class Seat {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public int getRowNumber() { return rowNumber; }
-    public void setRowNumber(int rowNumber) { this.rowNumber = rowNumber; }
-
-    public int getColumnNumber() { return columnNumber; }
-    public void setColumnNumber(int columnNumber) { this.columnNumber = columnNumber; }
+    public String getSeatNumber() { return seatNumber; }
+    public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
 
     public Lab getLab() { return lab; }
     public void setLab(Lab lab) { this.lab = lab; }

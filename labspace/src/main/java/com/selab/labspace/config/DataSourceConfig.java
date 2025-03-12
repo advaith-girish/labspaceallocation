@@ -14,13 +14,23 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 @Configuration
 public class DataSourceConfig {
 
+    // @Bean
+    // public DataSource dataSource() {
+    //     return DataSourceBuilder.create()
+    //             .url("jdbc:oracle:thin:@localhost:1521/FREEPDB1")
+    //             .username("labadmin")
+    //             .password("password")
+    //             .driverClassName("oracle.jdbc.OracleDriver")
+    //             .build();
+    // }
+
     @Bean
     public DataSource dataSource() {
         return DataSourceBuilder.create()
-                .url("jdbc:oracle:thin:@localhost:1521/FREEPDB1")
-                .username("labadmin")
+                .url("jdbc:mysql://localhost:3306/labspace")
+                .username("root")
                 .password("password")
-                .driverClassName("oracle.jdbc.OracleDriver")
+                .driverClassName("com.mysql.cj.jdbc.Driver")
                 .build();
     }
 
