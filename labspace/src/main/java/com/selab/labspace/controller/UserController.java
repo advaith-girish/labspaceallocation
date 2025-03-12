@@ -2,7 +2,6 @@ package com.selab.labspace.controller;
 
 import com.selab.labspace.model.User;
 import com.selab.labspace.service.UserService;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,36 +18,37 @@ public class UserController {
         this.userService = userService;
     }
 
-    // ✅ Register a new user (should come before the more general endpoints)
-    @PostMapping(value = "/register", consumes = {"application/json"})
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        Optional<User> user = userService.getUserByEmail(email);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping(value = "/register", consumes = { "application/json" })
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         System.out.println("Registering user: " + user);
         User createdUser = userService.createUser(user);
         return ResponseEntity.ok(createdUser);
     }
 
-    // ✅ Get all users
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
-    // ✅ Get a user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // ✅ Update a user's details
-    @PutMapping(value = "/{id}", consumes = {"application/json"})
+    @PutMapping(value = "/{id}", consumes = { "application/json" })
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         User updatedUser = userService.updateUser(id, userDetails);
         return ResponseEntity.ok(updatedUser);
     }
 
-    // ✅ Delete a user
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);

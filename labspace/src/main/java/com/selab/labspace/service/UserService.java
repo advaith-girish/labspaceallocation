@@ -20,6 +20,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+    
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
