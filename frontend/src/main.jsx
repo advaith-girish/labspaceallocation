@@ -19,6 +19,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<Login/>} />
         <Route path="/book" element={<SeatBookForm/>} />
         <Route path="/profile" element={<StudentProfile/>} />
+        <Route path="/server-monitoring" element={(<h1>Coming Soon...</h1>)} />
       </Routes>
     </Router>
   </StrictMode>,

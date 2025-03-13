@@ -25,6 +25,10 @@ public class LabService {
         return labRepository.findById(labId);
     }
 
+    public List<Lab> getLabsByAdmin(Long adminId) {
+        return labRepository.findByAdminId(adminId);
+    }
+
     public Lab createLab(Lab lab) {
         return labRepository.save(lab);
     }

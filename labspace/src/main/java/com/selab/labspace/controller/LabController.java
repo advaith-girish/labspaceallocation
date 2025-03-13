@@ -31,12 +31,18 @@ public class LabController {
         return ResponseEntity.ok(labs);
     }
 
+    @GetMapping("/admin/{adminId}")
+    public ResponseEntity<List<Lab>> getLabsByAdmin(@PathVariable Long adminId) {
+        List<Lab> labs = labService.getLabsByAdmin(adminId);
+        return ResponseEntity.ok(labs);
+    }
+
     @PutMapping("/test")
-public ResponseEntity<String> testEndpoint(@RequestBody String requestBody) {
-    System.out.println("Received request body: " + requestBody);
-    return ResponseEntity.ok("Request received: " + requestBody);
-    
-}
+    public ResponseEntity<String> testEndpoint(@RequestBody String requestBody) {
+        System.out.println("Received request body: " + requestBody);
+        return ResponseEntity.ok("Request received: " + requestBody);
+
+    }
 
     // ✅ Get lab by ID
     @GetMapping("/{labId}")
