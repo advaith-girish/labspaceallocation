@@ -14,6 +14,7 @@ const LabDashboard = () => {
   const [labs, setlabs] = useState([]);
   const user=JSON.parse(localStorage.getItem('user'));
   let role=user['role'];
+  let name=user['name'];
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,8 +46,8 @@ const LabDashboard = () => {
         <div className={styles.header}>
           <h1>Lab Space Allocation Manager</h1>
           <div className={styles.profileSection}>
-            <div className={styles.profileBadge}>JC</div>
-            <span>Joe Cherry</span>
+            <div className={styles.profileBadge}>K</div>
+            <span>{name} - {role}</span>
           </div>
         </div>
 
