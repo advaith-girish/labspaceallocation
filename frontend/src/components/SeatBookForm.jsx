@@ -1,33 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './SeatBookForm.module.css';
 
-const SeatBookForm = () => {
-  const [name, setName] = useState('');
+const SeatBookForm = ({ onSubmit,seatUser }) => {
+  console.log("SeatBookForm:", seatUser);
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
 
-  const handleSave = () => {
-    console.log('Name:', name);
-    console.log('Email:', email);
-    // Add save logic here
-  };
+  useEffect(() => {
+    if (seatUser) {
+      setName(seatUser.name || '');  
+      setEmail(seatUser.email || '');  
+    }
+  }, [seatUser]); 
 
-  const handleDelete = () => {
-    console.log('Delete action');
-    // Add delete logic here
-  };
-
-  const handleBlock = () => {
-    console.log('Block action');
-    // Add block logic here
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(name, email);
   };
 
   return (
     <div className={styles.containerBook}>
-      {/* Form */}
-      <div className={styles.formBox}>
-        {/* Name Input */}
+      <form className={styles.formBox} onSubmit={handleSubmit}>
         <div className={styles.inputGroup}>
-          <label htmlFor="name" className={styles.label}>Enter name..</label>
+          <label htmlFor="name" className={styles.label}>Enter name:</label>
           <input
             type="text"
             id="name"
@@ -38,9 +33,8 @@ const SeatBookForm = () => {
           />
         </div>
 
-        {/* Email Input */}
         <div className={styles.inputGroup}>
-          <label htmlFor="email" className={styles.label}>Enter email..</label>
+          <label htmlFor="email" className={styles.label}>Enter email:</label>
           <input
             type="email"
             id="email"
@@ -51,13 +45,11 @@ const SeatBookForm = () => {
           />
         </div>
 
-        {/* Action Buttons */}
         <div className={styles.buttonGroup}>
-          <button className={styles.saveButton} onClick={handleSave}>Save</button>
-          <button className={styles.deleteButton} onClick={handleDelete}>Delete</button>
-          <button className={styles.blockButton} onClick={handleBlock}>Block</button>
+          <button type="submit" className={styles.saveButton}>Save</button>
+          <button type="button" className={styles.deleteButton}>Delete</button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

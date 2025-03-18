@@ -22,6 +22,12 @@ public class SeatController {
         this.userService = userService;
     }
 
+    @PostMapping
+    public ResponseEntity<List<Seat>> createSeats(@RequestBody List<Seat> seats) {
+        List<Seat> createdSeats = seatService.createSeats(seats);
+        return ResponseEntity.ok(createdSeats);
+    }
+
     // ✅ Get all seats (Super Admin can access all)
     @GetMapping
     public ResponseEntity<List<Seat>> getAllSeats() {
@@ -32,7 +38,7 @@ public class SeatController {
     // ✅ Get seats in a specific lab (For Lab Admin)
     @GetMapping("/lab/{labId}")
     public ResponseEntity<List<Seat>> getSeatsByLab(@PathVariable Long labId) {
-        List<Seat> seats = seatService.getSeatsByLabId(labId);
+        List<Seat> seats = seatService.getSeatsWithUsersByLab(labId);
         return ResponseEntity.ok(seats);
     }
 
@@ -70,4 +76,3 @@ public class SeatController {
         }
     }
 }
-

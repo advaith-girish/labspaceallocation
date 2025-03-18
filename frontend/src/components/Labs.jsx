@@ -4,12 +4,6 @@ import Sidebar from './Sidebar';
 import { useNavigate } from 'react-router-dom';
 
 const LabDashboard = () => {
-  // const labs = [
-  //   { name: 'Lab: BDL', availability: '60%', type: 'Desktop-based' },
-  //   { name: 'Lab: MSE Research', availability: '60%', type: 'Bitting-only' },
-  //   { name: 'Lab: BDL', availability: '60%', type: 'Desktop-based' },
-  //   { name: 'Lab: BDL', availability: '60%', type: 'Desktop-based' },
-  // ];
 
   const [labs, setlabs] = useState([]);
   const user=JSON.parse(localStorage.getItem('user'));
@@ -55,8 +49,8 @@ const LabDashboard = () => {
           <div className={styles.labGrid}>
             {labs.length==0 && <h2>No Labs Available</h2>}
             {labs.map((lab, index) => (
-                <a href="/dashboard" style={{ textDecoration: 'none' , color:'black'}}>
-              <div key={index} className={styles.labCard}>
+              <a key={index} href={`/dashboard/${lab.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+              <div className={styles.labCard}>
                 <h3>{lab.name}</h3>
                 <p>Location: {lab.location}</p>
               </div>
@@ -67,9 +61,6 @@ const LabDashboard = () => {
           <button className={styles.secondaryButton}>Add New Lab</button>
           <button className={styles.secondaryButton}>Total Stats</button>
 
-          {/* <div className={styles.totalStats}>
-            <h2>Total Stats</h2>
-          </div> */}
         </div>
       </div>
     </div>

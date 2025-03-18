@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Dashboard.module.css';
 import Sidebar from './Sidebar';
-import LabLayout from './LabLayout'; // Import the LabLayout component
+import LabLayout from './LabLayout';
+import { useParams } from 'react-router-dom';
 
 const Dashboard = () => {
+  const labId = useParams().id;
   const [activeMenu, setActiveMenu] = useState('LABLAYOUT');
-  const [layouts, setLayouts] = useState(['BDL']);
+  const layouts = 'BDL';
+  const [seats, setseats] = useState([]);
+
+  useEffect(() => {
+    // Fetch layouts for the lab
+    async function getData() {
+      await fetch(`http://localhost:8080/api/seats/lab/${labId}`)
+        .then(response => response.json())
+        .then(data => {
+          setseats(data); 
+        });
+    }
+    getData();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -28,22 +43,32 @@ const Dashboard = () => {
                 + Add New Layout
               </button>
             </div>
-            
+
             <div className={styles.layoutGrid}>
+
+              {/*  
               {layouts.map((layout, index) => (
                 <div key={index} className={styles.layoutCard}>
                   <h3>{layout}</h3>
-                  
-                  {/* Replace Image with LabLayout Component */}
-                  <LabLayout /> 
-
-                  <div className={styles.cardActions}>
-                    {/* <button className={styles.iconButton}>📊</button> */}
-                    {/* <button className={styles.iconButton}>✏️</button> */}
-                    {/* <button className={styles.iconButton}>🗑️</button> */}
-                  </div>
+                  <LabLayout />
                 </div>
               ))}
+              */}
+
+              <div className={styles.layoutCard}>
+                <h3>{layouts}</h3>
+
+                {/* Replace Image with LabLayout Component */}
+                <LabLayout seats={seats}/>
+
+                <div className={styles.cardActions}>
+                  {/* <button className={styles.iconButton}>📊</button> */}
+                  {/* <button className={styles.iconButton}>✏️</button> */}
+                  {/* <button className={styles.iconButton}>🗑️</button> */}
+                </div>
+              </div>
+
+
             </div>
 
             <button className={styles.secondaryButton}>
