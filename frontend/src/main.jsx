@@ -20,6 +20,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/book" element={<SeatBookForm/>} />
         <Route path="/profile" element={<StudentProfile/>} />
         <Route path="/server-monitoring" element={(<h1>Coming Soon...</h1>)} />
+        <Route path="/forgot-password" element={(<h1>Contact Scene Admin : PGB</h1>)} />
       </Routes>
     </Router>
   </StrictMode>,

@@ -72,9 +72,9 @@ const Login = () => {
 
         <button className={styles.loginButton} onClick={handleLogin}>Login now</button>
         
-        <p className={styles.signUpText}>
+        {/* <p className={styles.signUpText}>
           Don't Have An Account? <a href="/signup" className={styles.signUpLink}>Sign Up</a>
-        </p>
+        </p> */}
       </div>
     </div>
   );

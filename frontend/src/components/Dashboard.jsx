@@ -57,15 +57,14 @@ const Dashboard = () => {
 
               <div className={styles.layoutCard}>
                 <h3>{layouts}</h3>
-
-                {/* Replace Image with LabLayout Component */}
                 <LabLayout seats={seats}/>
 
-                <div className={styles.cardActions}>
-                  {/* <button className={styles.iconButton}>📊</button> */}
-                  {/* <button className={styles.iconButton}>✏️</button> */}
-                  {/* <button className={styles.iconButton}>🗑️</button> */}
-                </div>
+                {/* <div className={styles.cardActions}>
+                  <button className={styles.iconButton}>📊</button>
+                  <button className={styles.iconButton}>✏️</button>
+                  <button className={styles.iconButton}>🗑️</button>
+                </div> */}
+
               </div>
 
 
