@@ -1,63 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './SeatBookForm.module.css';
 
-const SeatBookForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+const SeatBookForm = ({ onSubmit, seatUser, onUnassign }) => {
+  console.log("SeatBookForm received seatUser:", seatUser);
 
-  const handleSave = () => {
-    console.log('Name:', name);
-    console.log('Email:', email);
-    // Add save logic here
+  const [email, setEmail] = useState(seatUser?.email || '');
+  const [name, setName] = useState(seatUser?.name || '');
+  const [messages, setMessages] = useState([0,'Enter name', 'Enter email']); // 0 if no user , 1 if user alloted
+
+  useEffect(() => {
+    if (seatUser) {
+      setName(seatUser.name || '');
+      setEmail(seatUser.email || '');
+      setMessages([1,'Booked Username', 'Booked Email']);
+    }
+  }, [seatUser]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(name, email);
   };
+
 
   const handleDelete = () => {
-    console.log('Delete action');
-    // Add delete logic here
-  };
-
-  const handleBlock = () => {
-    console.log('Block action');
-    // Add block logic here
+    if (seatUser) {
+      onUnassign(); 
+    } else {
+      alert("No user assigned to this seat.");
+    }
   };
 
   return (
     <div className={styles.containerBook}>
-      {/* Form */}
-      <div className={styles.formBox}>
-        {/* Name Input */}
+      <form className={styles.formBox} onSubmit={handleSubmit}>
         <div className={styles.inputGroup}>
-          <label htmlFor="name" className={styles.label}>Enter name..</label>
-          <input
+          <label htmlFor="name" className={styles.label}>{messages[1]}</label>
+          {!messages[0] ? <input
             type="text"
             id="name"
             className={styles.input}
-            placeholder="Enter name.."
+            placeholder="Enter name..."
             value={name}
             onChange={(e) => setName(e.target.value)}
-          />
+          /> : <input
+          className={styles.input}
+          value={name}
+        />}
         </div>
 
-        {/* Email Input */}
         <div className={styles.inputGroup}>
-          <label htmlFor="email" className={styles.label}>Enter email..</label>
-          <input
+          <label htmlFor="email" className={styles.label}>{messages[2]}</label>
+          {!messages[0] ? <input
             type="email"
             id="email"
             className={styles.input}
-            placeholder="Enter email.."
+            placeholder="Enter email..."
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          />
+          /> : <input
+          className={styles.input}
+          value={email}
+        />}
         </div>
 
-        {/* Action Buttons */}
         <div className={styles.buttonGroup}>
-          <button className={styles.saveButton} onClick={handleSave}>Save</button>
-          <button className={styles.deleteButton} onClick={handleDelete}>Delete</button>
-          <button className={styles.blockButton} onClick={handleBlock}>Block</button>
+          <button type="submit" className={styles.saveButton}>Save</button>
+          <button type="button" className={styles.deleteButton} onClick={handleDelete}>Delete</button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

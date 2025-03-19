@@ -1,8 +1,8 @@
 package com.selab.labspace.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-// import com.fasterxml.jackson.annotation.JsonIgnore;
-
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,17 +15,18 @@ public class Seat {
     @Column(name = "seat_number")
     private String seatNumber; // Example: "A1", "B2" etc.
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lab_id", nullable = false)
     @JsonBackReference("lab-seats")
     private Lab lab;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", unique = true)
-    @JsonBackReference("user-seat")
+    @JsonManagedReference("user-seat") // ✅ Allows serialization
     private User assignedUser;
 
-    public Seat() {}
+    public Seat() {
+    }
 
     public Seat(String seatNumber, Lab lab) {
         this.seatNumber = seatNumber;
@@ -33,15 +34,35 @@ public class Seat {
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getSeatNumber() { return seatNumber; }
-    public void setSeatNumber(String seatNumber) { this.seatNumber = seatNumber; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Lab getLab() { return lab; }
-    public void setLab(Lab lab) { this.lab = lab; }
+    public String getSeatNumber() {
+        return seatNumber;
+    }
 
-    public User getAssignedUser() { return assignedUser; }
-    public void setAssignedUser(User assignedUser) { this.assignedUser = assignedUser; }
+    public void setSeatNumber(String seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
+    public Lab getLab() {
+        return lab;
+    }
+
+    public void setLab(Lab lab) {
+        this.lab = lab;
+    }
+
+    public User getAssignedUser() {
+        return assignedUser;
+    }
+
+    public void setAssignedUser(User assignedUser) {
+        this.assignedUser = assignedUser;
+    }
 }

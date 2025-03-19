@@ -21,6 +21,10 @@ public class SeatService {
         return seatRepository.findAll();
     }
 
+    public List<Seat> getSeatsWithUsersByLab(Long labId) {
+        return seatRepository.findSeatsWithUsersByLabId(labId);
+    }
+
     public List<Seat> getSeatsByLabId(Long labId) {
         return seatRepository.findByLabId(labId);
     }
@@ -38,4 +42,9 @@ public class SeatService {
         seat.setAssignedUser(null);
         return seatRepository.save(seat);
     }
+
+    public List<Seat> createSeats(List<Seat> seats) {
+        return seatRepository.saveAll(seats);
+    }
+    
 }

@@ -15,12 +15,13 @@ createRoot(document.getElementById('root')).render(
     <Router>
       <Routes>
         <Route path="/" element={<App/>} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/:id" element={<Dashboard />} />
         <Route path="/labs" element={<Labs/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/book" element={<SeatBookForm/>} />
         <Route path="/profile" element={<StudentProfile/>} />
         <Route path="/server-monitoring" element={<ServerMonitoring/>} />  
+        <Route path="/forgot-password" element={(<h1>Contact Scene Admin : PGB</h1>)} />
       </Routes>
     </Router>
   </StrictMode>,
