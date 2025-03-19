@@ -20,8 +20,6 @@ const LabDashboard = () => {
           </div>
         </div>
 
-        
-
         <Outlet />
       </div>
     </div>

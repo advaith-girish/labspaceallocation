@@ -8,6 +8,9 @@ function StudentProfile() {
   const isStudent = user?.role === "STUDENT";
   const [seatInfo, setSeatInfo] = useState(null);
   const [labInfo, setLabInfo] = useState(null);
+  const [labs, setLabs] = useState([]); // 🔹 Store available labs
+  const [showRequestModal, setShowRequestModal] = useState(false);
+  const [selectedLab, setSelectedLab] = useState(""); // 🔹 Store selected lab ID
 
   // Fetch seat information if the user is a student
   async function fetchSeatInfo() {
@@ -37,8 +40,46 @@ function StudentProfile() {
     }
   }
 
+  async function fetchLabs() {
+    try {
+      const response = await fetch(`/api/labs`);
+      const labData = await response.json();
+      console.log("Fetched labs:", labData);
+      setLabs(labData);
+    } catch (error) {
+      console.error("Error fetching labs:", error);
+    }
+  }
+
+  async function submitSeatRequest() {
+    if (!selectedLab) {
+      alert("Please select a lab.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/seat-requests/request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          studentName: user.name,
+          studentEmail: user.email,
+          labId: selectedLab
+        })
+      });
+
+      if (!response.ok) throw new Error("Failed to request seat");
+
+      alert("Seat request submitted successfully!");
+      setShowRequestModal(false);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   useEffect(() => {
     fetchSeatInfo();
+    fetchLabs();
   }, []);
 
   useEffect(() => {
@@ -90,7 +131,29 @@ function StudentProfile() {
             </p>
           </div>
         </div>
+
+        <button className="saveButton" onClick={() => setShowRequestModal(true)}>
+          Request Seat
+        </button>
       </div>
+
+      {showRequestModal && (
+        <div className="modalOverlay">
+          <div className="modalContent">
+            <h3>Select a Lab for Seat Request</h3>
+            <select onChange={(e) => setSelectedLab(e.target.value)} value={selectedLab}>
+              <option value="">Select a Lab</option>
+              {labs.map((lab) => (
+                <option key={lab.id} value={lab.id}>
+                  {lab.name} ({lab.location})
+                </option>
+              ))}
+            </select>
+            <button onClick={submitSeatRequest}>Submit Request</button>
+            <button onClick={() => setShowRequestModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

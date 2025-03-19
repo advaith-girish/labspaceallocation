@@ -1,6 +1,7 @@
 import React from 'react';
 import './Intro.css';
 import Sidebar from './Sidebar';
+import { Link } from 'react-router-dom';
 function Intro() {
     return (
         <>
@@ -20,8 +21,9 @@ function Intro() {
                         <div className="card"><h3>Overview Matrix</h3></div>
                         <div className="card"><h3>Lab Space Management</h3></div>
                         <div className="card"><h3>Allocations</h3></div>
+                        <Link to="/notifications" className="card"><h3>Notifications</h3></Link>
                         <div className="card"><h3>Server Monitoring</h3></div>
-                        <div className="card"><h3>Notifications</h3></div>
+                        {/* <div className="card"><h3>Notifications</h3></div> */}
                         <div className="card"><h3>Reports</h3></div>
                     </div>
                 </div>
