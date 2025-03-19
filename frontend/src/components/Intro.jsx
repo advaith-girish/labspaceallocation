@@ -9,7 +9,7 @@ function Intro() {
 
                 <div className="main-content">
                     <div className="header">
-                        <h1>Server Monitoring</h1>
+                        <h1>Dashboard</h1>
                         <div className="header-right">
                             <div>PROFILE</div>
                             <button className="logout-button">Logout</button>

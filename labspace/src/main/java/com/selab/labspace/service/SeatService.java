@@ -46,5 +46,8 @@ public class SeatService {
     public List<Seat> createSeats(List<Seat> seats) {
         return seatRepository.saveAll(seats);
     }
+    public Optional<Seat> getSeatByUserId(Long userId) {
+        return seatRepository.findByAssignedUser_Id(userId);
+    }
     
 }

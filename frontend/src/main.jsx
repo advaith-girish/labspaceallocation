@@ -9,6 +9,8 @@ import Login from './components/Login.jsx'
 import SeatBookForm from './components/SeatBookForm.jsx'
 import StudentProfile from './components/StudentProfile.jsx'
 import ServerMonitoring from './components/ServerMonitoring.jsx'
+import AddLab from './components/AddLab.jsx'
+import ListLabs from './components/ListLabs.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -16,7 +18,10 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<App/>} />
         <Route path="/dashboard/:id" element={<Dashboard />} />
-        <Route path="/labs" element={<Labs/>} />
+        <Route path="/labs" element={<Labs/>} >
+          <Route index element={<ListLabs/>} />
+          <Route path="addlab" element={<AddLab/>} />
+        </Route>
         <Route path="/login" element={<Login/>} />
         <Route path="/book" element={<SeatBookForm/>} />
         <Route path="/profile" element={<StudentProfile/>} />

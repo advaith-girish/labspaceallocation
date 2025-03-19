@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./ServerMonitoring.css";
+import { useNavigate } from "react-router-dom";
 
 const ServerMonitoring = () => {
   const [toggles, setToggles] = useState({
@@ -8,6 +9,8 @@ const ServerMonitoring = () => {
     disk: true,
     bandwidth: true
   });
+
+  const navigate = useNavigate();
 
   const users = [
     { name: "User123", cpu: "35%", memory: "6.2GB", disk: "50GB", lastActive: "5 minutes ago" },
@@ -21,6 +24,7 @@ const ServerMonitoring = () => {
 
   return (
     <div className="server-monitoring">
+      <button type="button" onClick={()=>{navigate('/')}}>Go Home</button>
       <h1>Server Monitoring</h1>
 
       {/* Metric Toggles */}
