@@ -48,6 +48,5 @@ public class SeatService {
     }
     public Optional<Seat> getSeatByUserId(Long userId) {
         return seatRepository.findByAssignedUser_Id(userId);
-    }
-    
+    }    
 }

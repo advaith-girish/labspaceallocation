@@ -17,6 +17,4 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     List<Seat> findSeatsWithUsersByLabId(@Param("labId") Long labId);
     @Query("SELECT s FROM Seat s JOIN FETCH s.lab WHERE s.assignedUser.id = :userId")
     Optional<Seat> findByAssignedUser_Id(@Param("userId") Long userId);
-
-
 }
