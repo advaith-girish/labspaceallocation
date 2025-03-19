@@ -5,22 +5,42 @@ import LabLayout from './LabLayout';
 import { useParams } from 'react-router-dom';
 
 const Dashboard = () => {
-  const labId = useParams().id;
+  const { id: labId } = useParams(); // Get labId from URL parameters
   const [activeMenu, setActiveMenu] = useState('LABLAYOUT');
-  const layouts = 'BDL';
-  const [seats, setseats] = useState([]);
+  const [labName, setLabName] = useState('Loading...'); // State for lab name
+  const [seats, setSeats] = useState([]); // State for seats
 
   useEffect(() => {
-    // Fetch layouts for the lab
-    async function getData() {
-      await fetch(`http://localhost:8080/api/seats/lab/${labId}`)
-        .then(response => response.json())
-        .then(data => {
-          setseats(data); 
-        });
+    // Fetch lab details (including name)
+    async function fetchLabData() {
+      try {
+        const response = await fetch(`http://localhost:8080/api/labs/${labId}`);
+        if (!response.ok) throw new Error('Failed to fetch lab details');
+        
+        const data = await response.json();
+        setLabName(data.name || 'Unknown Lab'); // Update lab name
+      } catch (error) {
+        console.error('Error fetching lab details:', error);
+        setLabName('Error Loading Lab');
+      }
     }
-    getData();
-  }, []);
+
+    // Fetch seats in the lab
+    async function fetchSeatsData() {
+      try {
+        const response = await fetch(`http://localhost:8080/api/seats/lab/${labId}`);
+        if (!response.ok) throw new Error('Failed to fetch seats');
+        
+        const data = await response.json();
+        setSeats(data);
+      } catch (error) {
+        console.error('Error fetching seats:', error);
+      }
+    }
+
+    fetchLabData();
+    fetchSeatsData();
+  }, [labId]);
 
   return (
     <div className={styles.container}>
@@ -39,40 +59,17 @@ const Dashboard = () => {
           <div className={styles.content}>
             <div className={styles.layoutHeader}>
               <h2>Existing Layouts</h2>
-              <button className={styles.primaryButton}>
-                + Add New Layout
-              </button>
+              <button className={styles.primaryButton}>+ Add New Layout</button>
             </div>
 
             <div className={styles.layoutGrid}>
-
-              {/*  
-              {layouts.map((layout, index) => (
-                <div key={index} className={styles.layoutCard}>
-                  <h3>{layout}</h3>
-                  <LabLayout />
-                </div>
-              ))}
-              */}
-
               <div className={styles.layoutCard}>
-                <h3>{layouts}</h3>
-                <LabLayout seats={seats}/>
-
-                {/* <div className={styles.cardActions}>
-                  <button className={styles.iconButton}>📊</button>
-                  <button className={styles.iconButton}>✏️</button>
-                  <button className={styles.iconButton}>🗑️</button>
-                </div> */}
-
+                <h3>{labName}</h3> {/* Display the fetched lab name */}
+                <LabLayout seats={seats} />
               </div>
-
-
             </div>
 
-            <button className={styles.secondaryButton}>
-              Show All Layouts
-            </button>
+            <button className={styles.secondaryButton}>Show All Layouts</button>
           </div>
         )}
       </main>
