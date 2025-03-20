@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "seats")
@@ -15,18 +17,19 @@ public class Seat {
     @Column(name = "seat_number")
     private String seatNumber; // Example: "A1", "B2" etc.
 
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "lab_id", nullable = false)
-    @JsonBackReference("lab-seats")
+    @JsonIgnoreProperties({"seats"})  // Prevents infinite recursion but keeps lab details
     private Lab lab;
+
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", unique = true)
-    @JsonManagedReference("user-seat") // ✅ Allows serialization
+    @JsonManagedReference("user-seat")
     private User assignedUser;
 
-    public Seat() {
-    }
+    public Seat() {}
 
     public Seat(String seatNumber, Lab lab) {
         this.seatNumber = seatNumber;

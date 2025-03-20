@@ -85,7 +85,11 @@ public class SeatController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<Seat> getSeatByUserId(@PathVariable Long userId) {
         Optional<Seat> seat = seatService.getSeatByUserId(userId);
-        return seat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
+        
+        if (seat.isPresent()) {
+            return ResponseEntity.ok(seat.get()); // Returns seat with lab
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }    
 }
