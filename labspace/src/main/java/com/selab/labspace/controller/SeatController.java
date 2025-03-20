@@ -35,6 +35,12 @@ public class SeatController {
         return ResponseEntity.ok(seats);
     }
 
+    @GetMapping("/with-labs")
+    public ResponseEntity<List<Seat>> getAllSeatsWithLabs() {
+        List<Seat> seats = seatService.getAllSeatsWithLabs();
+        return ResponseEntity.ok(seats);
+    }
+
     // ✅ Get seats in a specific lab (For Lab Admin)
     @GetMapping("/lab/{labId}")
     public ResponseEntity<List<Seat>> getSeatsByLab(@PathVariable Long labId) {
@@ -78,8 +84,8 @@ public class SeatController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<Seat> getSeatByUserId(@PathVariable Long userId) {
-    Optional<Seat> seat = seatService.getSeatByUserId(userId);
-    return seat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-}
+        Optional<Seat> seat = seatService.getSeatByUserId(userId);
+        return seat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
 
 }

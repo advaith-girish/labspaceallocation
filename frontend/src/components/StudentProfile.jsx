@@ -6,6 +6,7 @@ function StudentProfile() {
   console.log("Local stored user:", user);
 
   const isStudent = user?.role === "STUDENT";
+
   const [seatInfo, setSeatInfo] = useState(null);
   const [labInfo, setLabInfo] = useState(null);
   const [labs, setLabs] = useState([]); // 🔹 Store available labs
@@ -132,12 +133,12 @@ function StudentProfile() {
           </div>
         </div>
 
-        <button className="saveButton" onClick={() => setShowRequestModal(true)}>
+        {isStudent && <button className="saveButton" onClick={() => setShowRequestModal(true)}>
           Request Seat
-        </button>
+        </button>}
       </div>
 
-      {showRequestModal && (
+      {showRequestModal && isStudent && (
         <div className="modalOverlay">
           <div className="modalContent">
             <h3>Select a Lab for Seat Request</h3>

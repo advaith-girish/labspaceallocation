@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="820" style="background-color:white;">
+  <rect id="A1" x="10" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A1</text>
+  <rect id="A2" x="100" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A2</text>
+  <rect id="A3" x="190" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A3</text>
+  <rect id="A4" x="280" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A4</text>
+  <rect id="A5" x="370" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A5</text>
+  <rect id="A6" x="460" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A6</text>
+  <rect id="A7" x="550" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A7</text>
+  <rect id="A8" x="640" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A8</text>
+  <rect id="A9" x="730" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A9</text>
+  <rect id="A10" x="820" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A10</text>
+  <rect id="A11" x="910" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A11</text>
+  <rect id="A12" x="1000" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A12</text>
+  <rect id="A13" x="1090" y="10" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="55.0" font-size="20" text-anchor="middle" fill="black">A13</text>
+  <rect id="B1" x="10" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B1</text>
+  <rect id="B2" x="100" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B2</text>
+  <rect id="B3" x="190" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B3</text>
+  <rect id="B4" x="280" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B4</text>
+  <rect id="B5" x="370" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B5</text>
+  <rect id="B6" x="460" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B6</text>
+  <rect id="B7" x="550" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B7</text>
+  <rect id="B8" x="640" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B8</text>
+  <rect id="B9" x="730" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B9</text>
+  <rect id="B10" x="820" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B10</text>
+  <rect id="B11" x="910" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B11</text>
+  <rect id="B12" x="1000" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B12</text>
+  <rect id="B13" x="1090" y="100" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="145.0" font-size="20" text-anchor="middle" fill="black">B13</text>
+  <rect id="C1" x="10" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C1</text>
+  <rect id="C2" x="100" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C2</text>
+  <rect id="C3" x="190" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C3</text>
+  <rect id="C4" x="280" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C4</text>
+  <rect id="C5" x="370" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C5</text>
+  <rect id="C6" x="460" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C6</text>
+  <rect id="C7" x="550" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C7</text>
+  <rect id="C8" x="640" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C8</text>
+  <rect id="C9" x="730" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C9</text>
+  <rect id="C10" x="820" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C10</text>
+  <rect id="C11" x="910" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C11</text>
+  <rect id="C12" x="1000" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C12</text>
+  <rect id="C13" x="1090" y="190" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="235.0" font-size="20" text-anchor="middle" fill="black">C13</text>
+  <rect id="D1" x="10" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D1</text>
+  <rect id="D2" x="100" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D2</text>
+  <rect id="D3" x="190" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D3</text>
+  <rect id="D4" x="280" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D4</text>
+  <rect id="D5" x="370" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D5</text>
+  <rect id="D6" x="460" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D6</text>
+  <rect id="D7" x="550" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D7</text>
+  <rect id="D8" x="640" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D8</text>
+  <rect id="D9" x="730" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D9</text>
+  <rect id="D10" x="820" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D10</text>
+  <rect id="D11" x="910" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D11</text>
+  <rect id="D12" x="1000" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D12</text>
+  <rect id="D13" x="1090" y="280" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="325.0" font-size="20" text-anchor="middle" fill="black">D13</text>
+  <rect id="E1" x="10" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E1</text>
+  <rect id="E2" x="100" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E2</text>
+  <rect id="E3" x="190" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E3</text>
+  <rect id="E4" x="280" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E4</text>
+  <rect id="E5" x="370" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E5</text>
+  <rect id="E6" x="460" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E6</text>
+  <rect id="E7" x="550" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E7</text>
+  <rect id="E8" x="640" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E8</text>
+  <rect id="E9" x="730" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E9</text>
+  <rect id="E10" x="820" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E10</text>
+  <rect id="E11" x="910" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E11</text>
+  <rect id="E12" x="1000" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E12</text>
+  <rect id="E13" x="1090" y="370" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="415.0" font-size="20" text-anchor="middle" fill="black">E13</text>
+  <rect id="F1" x="10" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F1</text>
+  <rect id="F2" x="100" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F2</text>
+  <rect id="F3" x="190" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F3</text>
+  <rect id="F4" x="280" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F4</text>
+  <rect id="F5" x="370" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F5</text>
+  <rect id="F6" x="460" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F6</text>
+  <rect id="F7" x="550" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F7</text>
+  <rect id="F8" x="640" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F8</text>
+  <rect id="F9" x="730" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F9</text>
+  <rect id="F10" x="820" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F10</text>
+  <rect id="F11" x="910" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F11</text>
+  <rect id="F12" x="1000" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F12</text>
+  <rect id="F13" x="1090" y="460" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="505.0" font-size="20" text-anchor="middle" fill="black">F13</text>
+  <rect id="G1" x="10" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G1</text>
+  <rect id="G2" x="100" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G2</text>
+  <rect id="G3" x="190" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G3</text>
+  <rect id="G4" x="280" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G4</text>
+  <rect id="G5" x="370" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G5</text>
+  <rect id="G6" x="460" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G6</text>
+  <rect id="G7" x="550" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G7</text>
+  <rect id="G8" x="640" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G8</text>
+  <rect id="G9" x="730" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G9</text>
+  <rect id="G10" x="820" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G10</text>
+  <rect id="G11" x="910" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G11</text>
+  <rect id="G12" x="1000" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G12</text>
+  <rect id="G13" x="1090" y="550" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="595.0" font-size="20" text-anchor="middle" fill="black">G13</text>
+  <rect id="H1" x="10" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H1</text>
+  <rect id="H2" x="100" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H2</text>
+  <rect id="H3" x="190" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H3</text>
+  <rect id="H4" x="280" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H4</text>
+  <rect id="H5" x="370" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H5</text>
+  <rect id="H6" x="460" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H6</text>
+  <rect id="H7" x="550" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H7</text>
+  <rect id="H8" x="640" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H8</text>
+  <rect id="H9" x="730" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H9</text>
+  <rect id="H10" x="820" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H10</text>
+  <rect id="H11" x="910" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H11</text>
+  <rect id="H12" x="1000" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H12</text>
+  <rect id="H13" x="1090" y="640" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="685.0" font-size="20" text-anchor="middle" fill="black">H13</text>
+  <rect id="I1" x="10" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="50.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I1</text>
+  <rect id="I2" x="100" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="140.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I2</text>
+  <rect id="I3" x="190" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="230.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I3</text>
+  <rect id="I4" x="280" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="320.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I4</text>
+  <rect id="I5" x="370" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="410.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I5</text>
+  <rect id="I6" x="460" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="500.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I6</text>
+  <rect id="I7" x="550" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="590.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I7</text>
+  <rect id="I8" x="640" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="680.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I8</text>
+  <rect id="I9" x="730" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="770.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I9</text>
+  <rect id="I10" x="820" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="860.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I10</text>
+  <rect id="I11" x="910" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="950.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I11</text>
+  <rect id="I12" x="1000" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1040.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I12</text>
+  <rect id="I13" x="1090" y="730" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="1130.0" y="775.0" font-size="20" text-anchor="middle" fill="black">I13</text>
+</svg>

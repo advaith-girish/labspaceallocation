@@ -15,7 +15,7 @@ public class Seat {
     @Column(name = "seat_number")
     private String seatNumber; // Example: "A1", "B2" etc.
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "lab_id", nullable = false)
     @JsonBackReference("lab-seats")
     private Lab lab;

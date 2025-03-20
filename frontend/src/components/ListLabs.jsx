@@ -40,7 +40,7 @@ function ListLabs() {
             </div>
 
             <button className='secondaryButton' onClick={()=>navigate('/labs/addlab')}>Add New Lab</button>
-            <button className='secondaryButton'>Total Stats</button>
+            <button className='secondaryButton' onClick={()=>navigate('/totalstats')}>Total Stats</button>
 
         </div>
     )

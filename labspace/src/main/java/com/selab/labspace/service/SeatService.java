@@ -21,6 +21,10 @@ public class SeatService {
         return seatRepository.findAll();
     }
 
+    public List<Seat> getAllSeatsWithLabs() {
+        return seatRepository.findAllWithLabs();
+    }    
+
     public List<Seat> getSeatsWithUsersByLab(Long labId) {
         return seatRepository.findSeatsWithUsersByLabId(labId);
     }

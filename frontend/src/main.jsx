@@ -12,6 +12,7 @@ import ServerMonitoring from './components/ServerMonitoring.jsx'
 import AddLab from './components/AddLab.jsx'
 import ListLabs from './components/ListLabs.jsx'
 import Notifications from './components/Notifications.jsx'
+import TotalStats from './components/TotalStats.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/server-monitoring" element={<ServerMonitoring/>} />  
         <Route path="/notifications" element={<Notifications/>} />
         <Route path="/forgot-password" element={(<h1>Contact Scene Admin : PGB</h1>)} />
+        <Route path="/totalstats" element={<TotalStats/>} />
       </Routes>
     </Router>
   </StrictMode>,

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="550" height="460" style="background-color:white;">
+<rect id="A1" x="5" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="45.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A1</text>
+<rect id="A2" x="95" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="135.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A2</text>
+<rect id="A3" x="185" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="225.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A3</text>
+<rect id="A4" x="275" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="315.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A4</text>
+<rect id="A5" x="365" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="405.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A5</text>
+<rect id="A6" x="455" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="495.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A6</text>
+<rect id="B1" x="95" y="110" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="135.0" y="155.0" font-size="20" text-anchor="middle" fill="black">B1</text>
+<rect id="B2" x="185" y="110" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="225.0" y="155.0" font-size="20" text-anchor="middle" fill="black">B2</text>
+<rect id="B3" x="275" y="110" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="315.0" y="155.0" font-size="20" text-anchor="middle" fill="black">B3</text>
+<rect id="B4" x="365" y="110" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="405.0" y="155.0" font-size="20" text-anchor="middle" fill="black">B4</text>
+<rect id="C1" x="140" y="200" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="180.0" y="245.0" font-size="20" text-anchor="middle" fill="black">C1</text>
+<rect id="C2" x="230" y="200" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="270.0" y="245.0" font-size="20" text-anchor="middle" fill="black">C2</text>
+<rect id="C3" x="320" y="200" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="360.0" y="245.0" font-size="20" text-anchor="middle" fill="black">C3</text>
+<rect id="D1" x="50" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="90.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D1</text>
+<rect id="D2" x="140" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="180.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D2</text>
+<rect id="D3" x="230" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="270.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D3</text>
+<rect id="D4" x="320" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="360.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D4</text>
+<rect id="D5" x="410" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="450.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D5</text>
+<rect id="E1" x="185" y="380" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="225.0" y="425.0" font-size="20" text-anchor="middle" fill="black">E1</text>
+<rect id="E2" x="275" y="380" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+<text x="315.0" y="425.0" font-size="20" text-anchor="middle" fill="black">E2</text>
+</svg>
