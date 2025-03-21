@@ -28,7 +28,6 @@ public class SeatController {
         return ResponseEntity.ok(createdSeats);
     }
 
-    // ✅ Get all seats (Super Admin can access all)
     @GetMapping
     public ResponseEntity<List<Seat>> getAllSeats() {
         List<Seat> seats = seatService.getAllSeats();
@@ -41,21 +40,18 @@ public class SeatController {
         return ResponseEntity.ok(seats);
     }
 
-    // ✅ Get seats in a specific lab (For Lab Admin)
     @GetMapping("/lab/{labId}")
     public ResponseEntity<List<Seat>> getSeatsByLab(@PathVariable Long labId) {
         List<Seat> seats = seatService.getSeatsWithUsersByLab(labId);
         return ResponseEntity.ok(seats);
     }
 
-    // ✅ Get seat by ID
     @GetMapping("/{seatId}")
     public ResponseEntity<Seat> getSeatById(@PathVariable Long seatId) {
         Optional<Seat> seat = seatService.getSeatById(seatId);
         return seat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // ✅ Assign a seat to a student
     @PutMapping("/{seatId}/assign/{userId}")
     public ResponseEntity<Seat> assignSeat(@PathVariable Long seatId, @PathVariable Long userId) {
         Optional<User> userOpt = userService.getUserById(userId);
@@ -69,7 +65,6 @@ public class SeatController {
         }
     }
 
-    // ✅ Unassign a seat (Remove student from seat)
     @PutMapping("/{seatId}/unassign")
     public ResponseEntity<Seat> unassignSeat(@PathVariable Long seatId) {
         Optional<Seat> seatOpt = seatService.getSeatById(seatId);
