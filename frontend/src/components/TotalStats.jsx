@@ -75,8 +75,6 @@ const TotalStats = () => {
             <tr>
               <th>Lab Name</th>
               <th>Seat Number</th>
-              <th>Lab Name</th>
-              <th>Seat Number</th>
               <th>Student Name</th>
               <th>Email</th>
             </tr>

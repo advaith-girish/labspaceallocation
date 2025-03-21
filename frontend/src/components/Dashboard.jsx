@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './Dashboard.module.css';
 import Sidebar from './Sidebar';
 import LabLayout from './LabLayout';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Dashboard = () => {
   const { id: labId } = useParams(); // Get labId from URL
@@ -11,6 +11,10 @@ const Dashboard = () => {
   const [seats, setSeats] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false); // Toggle notifications
   const [notifications, setNotifications] = useState([]); // Store lab-specific notifications
+
+  const navigate = useNavigate(); 
+
+  const user=JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     // Fetch lab details
@@ -57,7 +61,7 @@ const Dashboard = () => {
     }
   }, [showNotifications, labId]);
 
-  // ✅ Function to Approve/Reject Seat Requests
+  // to Approve/Reject Seat Requests
   const handleRequestAction = async (requestId, status) => {
     try {
       const response = await fetch(
@@ -74,6 +78,27 @@ const Dashboard = () => {
       setNotifications(notifications.filter(req => req.id !== requestId));
     } catch (error) {
       console.error("Error:", error);
+    }
+  };
+
+  const deleteLab = async () => {
+    if (!window.confirm("Are you sure you want to delete this lab?")) {
+      return; 
+    }
+    try {
+      const response = await fetch(`/api/labs/${labId}`, {
+        method: "DELETE",
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to delete lab: ${response.statusText}`);
+      }
+  
+      alert("Lab deleted successfully!");
+      navigate("/labs");
+    } catch (error) {
+      console.error("Error deleting lab:", error);
+      alert("Failed to delete lab.");
     }
   };
 
@@ -94,7 +119,7 @@ const Dashboard = () => {
           <div className={styles.content}>
             <div className={styles.layoutHeader}>
               <h2>Existing Layouts</h2>
-              <button className={styles.primaryButton}>+ Add New Layout</button>
+              {user.role==='ADMIN' && <button className={styles.primaryButton} onClick={deleteLab}>Delete this Lab</button>}
             </div>
 
             <div className={styles.layoutGrid}>
