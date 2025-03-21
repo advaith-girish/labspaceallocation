@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./TotalStats.module.css";
 
+
 const TotalStats = () => {
   const navigate = useNavigate();
   const [labs, setLabs] = useState([]);
   const [allocatedSeats, setAllocatedSeats] = useState([]);
+
 
   useEffect(() => {
     const fetchLabs = async () => {
@@ -27,6 +29,7 @@ const TotalStats = () => {
 
         setLabs(data);
         setAllocatedSeats(occupiedSeats);
+
       } catch (error) {
         console.error("Error fetching labs:", error);
       }
@@ -44,12 +47,12 @@ const TotalStats = () => {
         </button>
       </div>
 
-      {/* Stats Summary */}
       <div className={styles.statsSummary}>
         <div className={styles.statCard}>
           <h3>Total Labs</h3>
           <p>{labs.length}</p>
         </div>
+
         <div className={styles.statCard}>
           <h3>Total Seats</h3>
           <p>{labs.reduce((total, lab) => total + lab.seats.length, 0)}</p>
@@ -64,12 +67,14 @@ const TotalStats = () => {
         </div>
       </div>
 
-      {/* Allocated Seats Table */}
       <h2>Allocated Seats ({allocatedSeats.length})</h2>
+      <br/>
       <div className={styles.tableContainer}>
         <table className={styles.statsTable}>
           <thead>
             <tr>
+              <th>Lab Name</th>
+              <th>Seat Number</th>
               <th>Lab Name</th>
               <th>Seat Number</th>
               <th>Student Name</th>
@@ -89,7 +94,7 @@ const TotalStats = () => {
             ) : (
               <tr>
                 <td colSpan="4" className={styles.noData}>No seats allocated yet.</td>
-              </tr>
+                </tr>
             )}
           </tbody>
         </table>
@@ -99,3 +104,4 @@ const TotalStats = () => {
 };
 
 export default TotalStats;
+

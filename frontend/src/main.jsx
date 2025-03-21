@@ -31,6 +31,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/notifications" element={<Notifications/>} />
         <Route path="/totalstats" element={<TotalStats/>} />
         <Route path="/forgot-password" element={(<h1>Contact Scene Admin : PGB</h1>)} />
+        <Route path="/totalstats" element={<TotalStats/>} />
       </Routes>
     </Router>
   </StrictMode>,

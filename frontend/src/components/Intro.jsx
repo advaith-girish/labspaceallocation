@@ -20,11 +20,11 @@ function Intro() {
                     <div className="card-grid">
                         <div className="card"><h3>Overview Matrix</h3></div>
                         <div className="card"><h3>Lab Space Management</h3></div>
-                        <div className="card"><h3>Allocations</h3></div>
+                        <Link to="/totalstats" className="card"><h3>Allocations</h3></Link>
                         <Link to="/notifications" className="card"><h3>Notifications</h3></Link>
-                        <div className="card"><h3>Server Monitoring</h3></div>
+                        <Link to="/server-monitoring" className="card"><h3>Server Monitoring</h3></Link>
                         {/* <div className="card"><h3>Notifications</h3></div> */}
-                        <div className="card"><h3>Reports</h3></div>
+
                     </div>
                 </div>
             </div>
