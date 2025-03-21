@@ -1,7 +1,6 @@
 package com.selab.labspace.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-//import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -22,7 +21,7 @@ public class Seat {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", unique = true)
-    @JsonManagedReference("user-seat") // ✅ Allows serialization
+    @JsonManagedReference("user-seat") // Allows serialization
     private User assignedUser;
 
     public Seat() {

@@ -8,9 +8,9 @@ function StudentProfile() {
   const isStudent = user?.role === "STUDENT";
   const [seatInfo, setSeatInfo] = useState(null);
   const [labInfo, setLabInfo] = useState(null);
-  const [labs, setLabs] = useState([]); // 🔹 Store available labs
+  const [labs, setLabs] = useState([]); 
   const [showRequestModal, setShowRequestModal] = useState(false);
-  const [selectedLab, setSelectedLab] = useState(""); // 🔹 Store selected lab ID
+  const [selectedLab, setSelectedLab] = useState(""); 
 
   // Fetch seat information if the user is a student
   async function fetchSeatInfo() {

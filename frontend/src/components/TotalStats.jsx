@@ -1,77 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import styles from './TotalStats.module.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./TotalStats.module.css";
 
 const TotalStats = () => {
-  const { labId } = useParams();
   const navigate = useNavigate();
-  const [stats, setStats] = useState({
-    totalSeats: 0,
-    occupiedSeats: 0,
-    students: []
-  });
+  const [labs, setLabs] = useState([]);
+  const [allocatedSeats, setAllocatedSeats] = useState([]);
 
   useEffect(() => {
-    const fetchStats = async () => {
+    const fetchLabs = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/labs/${labId}/stats`);
+        const response = await fetch("http://localhost:8080/api/labs");
         const data = await response.json();
-        setStats(data);
+
+        // Extracting all occupied seats from all labs
+        const occupiedSeats = data
+          .flatMap(lab => lab.seats) // Get all seats from each lab
+          .filter(seat => seat.assignedUser !== null) // Filter only occupied seats
+          .map(seat => ({
+            id: seat.id,
+            seatNumber: seat.seatNumber,
+            labName: data.find(lab => lab.seats.some(s => s.id === seat.id))?.name || "Unknown Lab",
+            studentName: seat.assignedUser.name,
+            email: seat.assignedUser.email
+          }));
+
+        setLabs(data);
+        setAllocatedSeats(occupiedSeats);
       } catch (error) {
-        console.error('Error fetching stats:', error);
+        console.error("Error fetching labs:", error);
       }
     };
 
-    fetchStats();
-  }, [labId]);
+    fetchLabs();
+  }, []);
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>Lab Statistics</h1>
-        <button 
-          className={styles.backButton}
-          onClick={() => navigate(-1)}
-        >
-          ← Back to Layout
+        <h1>Lab Seat Allocations</h1>
+        <button className={styles.backButton} onClick={() => navigate(-1)}>
+          ← Back to Dashboard
         </button>
       </div>
 
+      {/* Stats Summary */}
       <div className={styles.statsSummary}>
         <div className={styles.statCard}>
+          <h3>Total Labs</h3>
+          <p>{labs.length}</p>
+        </div>
+        <div className={styles.statCard}>
           <h3>Total Seats</h3>
-          <p>{stats.totalSeats}</p>
+          <p>{labs.reduce((total, lab) => total + lab.seats.length, 0)}</p>
         </div>
         <div className={styles.statCard}>
           <h3>Occupied Seats</h3>
-          <p>{stats.occupiedSeats}</p>
+          <p>{allocatedSeats.length}</p>
         </div>
         <div className={styles.statCard}>
           <h3>Utilization</h3>
-          <p>{Math.round((stats.occupiedSeats / stats.totalSeats) * 100) || 0}%</p>
+          <p>{Math.round((allocatedSeats.length / (labs.reduce((total, lab) => total + lab.seats.length, 0) || 1)) * 100)}%</p>
         </div>
       </div>
 
-      <h2>Allocated Students ({stats.students.length})</h2>
+      {/* Allocated Seats Table */}
+      <h2>Allocated Seats ({allocatedSeats.length})</h2>
       <div className={styles.tableContainer}>
         <table className={styles.statsTable}>
           <thead>
             <tr>
-              <th>Student Name</th>
+              <th>Lab Name</th>
               <th>Seat Number</th>
+              <th>Student Name</th>
               <th>Email</th>
-              <th>Allocation Date</th>
             </tr>
           </thead>
           <tbody>
-            {stats.students.map(student => (
-              <tr key={student.id}>
-                <td>{student.name}</td>
-                <td>{student.seatNumber}</td>
-                <td>{student.email}</td>
-                <td>{new Date(student.allocationDate).toLocaleDateString()}</td>
+            {allocatedSeats.length > 0 ? (
+              allocatedSeats.map(seat => (
+                <tr key={seat.id}>
+                  <td>{seat.labName}</td>
+                  <td>{seat.seatNumber}</td>
+                  <td>{seat.studentName}</td>
+                  <td>{seat.email}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className={styles.noData}>No seats allocated yet.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
