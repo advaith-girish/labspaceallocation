@@ -12,6 +12,7 @@ function StudentProfile() {
   const [labs, setLabs] = useState([]); 
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [selectedLab, setSelectedLab] = useState(""); 
+  const [isUnassignRequested, setIsUnassignRequested] = useState(false); // Track unassign request
 
   // Fetch seat information if the user is a student
   async function fetchSeatInfo() {
@@ -27,20 +28,6 @@ function StudentProfile() {
     }
   }
 
-  // Fetch lab information based on seat assignment
-  async function fetchLabInfo() {
-    if (seatInfo?.id) {
-      try {
-        const response = await fetch(`/api/labs/${seatInfo.id}`);
-        const labData = await response.json();
-        console.log("Fetched lab info:", labData);
-        setLabInfo(labData);
-      } catch (error) {
-        console.error("Error fetching lab:", error);
-      }
-    }
-  }
-
   async function fetchLabs() {
     try {
       const response = await fetch(`/api/labs`);
@@ -49,6 +36,20 @@ function StudentProfile() {
       setLabs(labData);
     } catch (error) {
       console.error("Error fetching labs:", error);
+    }
+  }
+
+  // Fetch lab information based on seat assignment
+  async function fetchLabInfo() {
+    if (seatInfo?.id) {
+      try {
+        const response = await fetch(`/api/labs/${seatInfo.lab.id}`);
+        const labData = await response.json();
+        console.log("Fetched lab info:", labData);
+        setLabInfo(labData);
+      } catch (error) {
+        console.error("Error fetching lab:", error);
+      }
     }
   }
 
@@ -78,6 +79,31 @@ function StudentProfile() {
     }
   }
 
+  async function submitUnassignRequest() {
+    if (!seatInfo) {
+      alert("You don't have a seat assigned.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/seat-unassign-requests/request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: user.id,
+          seatId: seatInfo.id
+        })
+      });
+
+      if (!response.ok) throw new Error("Failed to request unassignment");
+
+      alert("Seat unassignment request submitted successfully!");
+      setIsUnassignRequested(true);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   useEffect(() => {
     fetchSeatInfo();
     fetchLabs();
@@ -102,10 +128,10 @@ function StudentProfile() {
                     <b>Lab:</b> {labInfo ? labInfo.name : "Fetching..."}
                   </p>
                   <p>
-                    <b>Seat No.:</b> {seatInfo.seatNumber || "N/A"}
+                    <b>Seat No.:</b> {seatInfo?.seatNumber || "N/A"}
                   </p>
                   <p>
-                    <b>Type:</b> {seatInfo.type || "N/A"}
+                    <b>Location:</b> {labInfo?.location || "N/A"}
                   </p>
                 </>
               ) : (
@@ -133,9 +159,23 @@ function StudentProfile() {
           </div>
         </div>
 
-        {isStudent && <button className="saveButton" onClick={() => setShowRequestModal(true)}>
-          Request Seat
-        </button>}
+        {/* Show "Request Seat" button if student has no seat */}
+        {isStudent && !seatInfo && (
+          <button className="saveButton" onClick={() => setShowRequestModal(true)}>
+            Request Seat
+          </button>
+        )}
+
+        {/* Show "Request Unassign Seat" button if student has an assigned seat */}
+        {isStudent && seatInfo && (
+          <button 
+            className="unassignButton" 
+            onClick={submitUnassignRequest} 
+            disabled={isUnassignRequested}
+          >
+            {isUnassignRequested ? "Unassignment Requested" : "Request Unassign Seat"}
+          </button>
+        )}
       </div>
 
       {showRequestModal && isStudent && (
