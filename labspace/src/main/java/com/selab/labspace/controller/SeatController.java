@@ -1,5 +1,6 @@
 package com.selab.labspace.controller;
 
+import com.selab.labspace.repository.SeatRepository;
 import com.selab.labspace.model.Seat;
 import com.selab.labspace.model.User;
 import com.selab.labspace.service.SeatService;
@@ -16,10 +17,12 @@ public class SeatController {
 
     private final SeatService seatService;
     private final UserService userService;
+    private final SeatRepository seatRepository;
 
-    public SeatController(SeatService seatService, UserService userService) {
+    public SeatController(SeatService seatService, UserService userService,SeatRepository seatRepository) {
         this.seatService = seatService;
         this.userService = userService;
+        this.seatRepository = seatRepository;
     }
 
     @PostMapping
@@ -41,10 +44,11 @@ public class SeatController {
     }
 
     @GetMapping("/lab/{labId}")
-    public ResponseEntity<List<Seat>> getSeatsByLab(@PathVariable Long labId) {
-        List<Seat> seats = seatService.getSeatsWithUsersByLab(labId);
-        return ResponseEntity.ok(seats);
-    }
+public ResponseEntity<List<Seat>> getSeatsByLab(@PathVariable Long labId) {
+    List<Seat> seats = seatRepository.findSeatsWithLabByLabId(labId);
+    return ResponseEntity.ok(seats);
+}
+
 
     @GetMapping("/{seatId}")
     public ResponseEntity<Seat> getSeatById(@PathVariable Long seatId) {
@@ -80,7 +84,12 @@ public class SeatController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<Seat> getSeatByUserId(@PathVariable Long userId) {
         Optional<Seat> seat = seatService.getSeatByUserId(userId);
-        return seat.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        
+        if (seat.isPresent()) {
+            return ResponseEntity.ok(seat.get()); // Returns seat with lab
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

@@ -6,30 +6,37 @@ function StudentProfile() {
   console.log("Local stored user:", user);
 
   const isStudent = user?.role === "STUDENT";
-
   const [seatInfo, setSeatInfo] = useState(null);
-  const [labInfo, setLabInfo] = useState(null);
   const [labs, setLabs] = useState([]); 
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [selectedLab, setSelectedLab] = useState(""); 
-  const [isUnassignRequested, setIsUnassignRequested] = useState(false); // Track unassign request
+  const [isUnassignRequested, setIsUnassignRequested] = useState(false);
 
-  // Fetch seat information if the user is a student
+  // ✅ Fetch seat information if the user is a student
   async function fetchSeatInfo() {
     if (isStudent) {
       try {
+        console.log(`Fetching seat for user ID: ${user.id}`);
         const response = await fetch(`/api/seats/user/${user.id}`);
         const seatData = await response.json();
-        console.log("Fetched seat info:", seatData);
+        console.log("Fetched seat info:", seatData); // 🔍 Debug log
+  
+        if (!seatData.lab) {
+          console.error("Lab data is missing from the API response!");
+        }
+  
         setSeatInfo(seatData);
       } catch (error) {
         console.error("Error fetching seat:", error);
       }
     }
   }
+  
 
+  // ✅ Fetch available labs
   async function fetchLabs() {
     try {
+      console.log("Fetching available labs...");
       const response = await fetch(`/api/labs`);
       const labData = await response.json();
       console.log("Fetched labs:", labData);
@@ -39,20 +46,7 @@ function StudentProfile() {
     }
   }
 
-  // Fetch lab information based on seat assignment
-  async function fetchLabInfo() {
-    if (seatInfo?.id) {
-      try {
-        const response = await fetch(`/api/labs/${seatInfo.lab.id}`);
-        const labData = await response.json();
-        console.log("Fetched lab info:", labData);
-        setLabInfo(labData);
-      } catch (error) {
-        console.error("Error fetching lab:", error);
-      }
-    }
-  }
-
+  // ✅ Request a seat in a lab
   async function submitSeatRequest() {
     if (!selectedLab) {
       alert("Please select a lab.");
@@ -60,6 +54,7 @@ function StudentProfile() {
     }
 
     try {
+      console.log(`Requesting seat for user ${user.name} in lab ${selectedLab}`);
       const response = await fetch(`/api/seat-requests/request`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -79,6 +74,7 @@ function StudentProfile() {
     }
   }
 
+  // ✅ Request to unassign seat
   async function submitUnassignRequest() {
     if (!seatInfo) {
       alert("You don't have a seat assigned.");
@@ -86,6 +82,7 @@ function StudentProfile() {
     }
 
     try {
+      console.log(`Requesting seat unassignment for seat ${seatInfo.id}`);
       const response = await fetch(`/api/seat-unassign-requests/request`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -104,14 +101,11 @@ function StudentProfile() {
     }
   }
 
+  // ✅ Fetch data on component mount
   useEffect(() => {
     fetchSeatInfo();
     fetchLabs();
   }, []);
-
-  useEffect(() => {
-    fetchLabInfo();
-  }, [seatInfo]);
 
   return (
     <div className="containerProfile">
@@ -119,32 +113,29 @@ function StudentProfile() {
         <h1 className="pageTitle">{isStudent ? "STUDENT" : "ADMIN"} PROFILE</h1>
 
         <div className="profileWrapper">
+          {/* ✅ Student's Current Seat Allocation */}
           {isStudent && (
             <div className="card allocationBox">
               <h3>Current Allocation</h3>
               {seatInfo ? (
                 <>
                   <p>
-                    <b>Lab:</b> {labInfo ? labInfo.name : "Fetching..."}
+                    <b>Lab:</b> {seatInfo?.lab?.name || "Fetching..."}
                   </p>
                   <p>
                     <b>Seat No.:</b> {seatInfo?.seatNumber || "N/A"}
                   </p>
                   <p>
-                    <b>Location:</b> {labInfo?.location || "N/A"}
+                    <b>Location:</b> {seatInfo?.lab?.location || "Fetching..."}
                   </p>
                 </>
               ) : (
                 <p>No seat assigned</p>
               )}
-
-              <h3>Past Allocations</h3>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
             </div>
           )}
 
+          {/* ✅ Student's Details */}
           <div className="card detailsBox">
             <h3>{user?.role}</h3>
             <p>
@@ -153,20 +144,17 @@ function StudentProfile() {
             <p>
               <b>Email:</b> {user?.email}
             </p>
-            <p>
-              <b>Password:</b> {user?.password}
-            </p>
           </div>
         </div>
 
-        {/* Show "Request Seat" button if student has no seat */}
+        {/* ✅ Request a seat if student has none */}
         {isStudent && !seatInfo && (
           <button className="saveButton" onClick={() => setShowRequestModal(true)}>
             Request Seat
           </button>
         )}
 
-        {/* Show "Request Unassign Seat" button if student has an assigned seat */}
+        {/* ✅ Request to unassign seat if student has one */}
         {isStudent && seatInfo && (
           <button 
             className="unassignButton" 
@@ -178,6 +166,7 @@ function StudentProfile() {
         )}
       </div>
 
+      {/* ✅ Modal for selecting lab when requesting a seat */}
       {showRequestModal && isStudent && (
         <div className="modalOverlay">
           <div className="modalContent">

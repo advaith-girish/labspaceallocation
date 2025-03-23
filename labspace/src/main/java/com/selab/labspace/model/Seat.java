@@ -3,7 +3,7 @@ package com.selab.labspace.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "seats")
 public class Seat {
@@ -14,10 +14,11 @@ public class Seat {
     @Column(name = "seat_number")
     private String seatNumber; // Example: "A1", "B2" etc.
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER) // Force load Lab
     @JoinColumn(name = "lab_id", nullable = false)
-    @JsonBackReference("lab-seats")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // Prevents proxy errors
     private Lab lab;
+
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", unique = true)
