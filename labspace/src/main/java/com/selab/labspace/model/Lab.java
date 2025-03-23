@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "labs")
@@ -20,10 +21,12 @@ public class Lab {
 
     private String location;
 
-    // One Lab has many Seats
+    // One Lab has many Seats 
+
     @OneToMany(mappedBy = "lab", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference("lab-seats") // Matches @JsonBackReference in Seat
+    @JsonIgnoreProperties({"lab"})  // Prevents recursion issues, allows seats serialization
     private Set<Seat> seats = new HashSet<>();
+
 
     // Many Labs can be managed by one User (Admin)
     @ManyToOne

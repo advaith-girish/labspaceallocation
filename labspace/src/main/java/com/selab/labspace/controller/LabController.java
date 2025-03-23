@@ -1,9 +1,11 @@
 package com.selab.labspace.controller;
 
 import com.selab.labspace.model.Lab;
+import com.selab.labspace.model.Seat;
 import com.selab.labspace.model.User;
 import com.selab.labspace.service.LabService;
 import com.selab.labspace.service.UserService;
+import com.selab.labspace.repository.SeatRepository; 
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +20,12 @@ public class LabController {
 
     private final LabService labService;
     private final UserService userService;
+    private final SeatRepository seatRepository;
 
-    public LabController(LabService labService, UserService userService) {
+    public LabController(LabService labService, UserService userService, SeatRepository seatRepository) {
         this.labService = labService;
         this.userService = userService;
+        this.seatRepository = seatRepository; // Assign it in the constructor
     }
 
     // ✅ Get all labs (Super Admin access)
@@ -36,6 +40,12 @@ public class LabController {
         List<Lab> labs = labService.getLabsByAdmin(adminId);
         return ResponseEntity.ok(labs);
     }
+    @GetMapping("/{labId}/seats")
+public ResponseEntity<List<Seat>> getSeatsByLab(@PathVariable Long labId) {
+    List<Seat> seats = seatRepository.findSeatsWithLabByLabId(labId);
+    return ResponseEntity.ok(seats);
+}
+
 
     @PutMapping("/test")
     public ResponseEntity<String> testEndpoint(@RequestBody String requestBody) {
@@ -50,6 +60,8 @@ public class LabController {
         Optional<Lab> lab = labService.getLabById(labId);
         return lab.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    
 
     // ✅ Create a new lab (Super Admin only)
     @PostMapping

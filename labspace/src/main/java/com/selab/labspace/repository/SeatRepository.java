@@ -21,10 +21,15 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
 
     // Get seat assigned to a specific user (Handles case where user may not have
     // a seat)
-    @Query("SELECT s FROM Seat s LEFT JOIN FETCH s.lab WHERE s.assignedUser.id = :userId")
+    @Query("SELECT s FROM Seat s JOIN FETCH s.lab WHERE s.assignedUser.id = :userId")
     Optional<Seat> findByAssignedUser_Id(@Param("userId") Long userId);
+
 
     // Get all seats along with labs and assigned users (Handles NULL users)
     @Query("SELECT s FROM Seat s LEFT JOIN FETCH s.lab LEFT JOIN FETCH s.assignedUser")
     List<Seat> findAllWithLabs();
+
+    @Query("SELECT s FROM Seat s JOIN FETCH s.lab WHERE s.lab.id = :labId")
+    List<Seat> findSeatsWithLabByLabId(@Param("labId") Long labId);
+
 }
