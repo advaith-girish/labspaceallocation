@@ -12,7 +12,7 @@ public class Seat {
     private Long id;
 
     @Column(name = "seat_number")
-    private String seatNumber; // Example: "A1", "B2" etc.
+    private String seatNumber;
 
     @ManyToOne(fetch = FetchType.EAGER) // Force load Lab
     @JoinColumn(name = "lab_id", nullable = false)
@@ -33,7 +33,6 @@ public class Seat {
         this.lab = lab;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

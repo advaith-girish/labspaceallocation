@@ -50,8 +50,10 @@ const LabLayout = ({ seats }) => {
       });
       if (!response.ok) throw new Error("Failed to assign seat");
 
+      window.location.reload();
       alert("Seat assigned successfully!");
       closeForm();
+      
     } catch (error) {
       console.error("Error:", error);
     }
@@ -68,6 +70,7 @@ const LabLayout = ({ seats }) => {
 
       if (!response.ok) throw new Error("Failed to unassign seat");
 
+      window.location.reload();
       alert("Seat unassigned successfully!");
       closeForm();
     } catch (error) {

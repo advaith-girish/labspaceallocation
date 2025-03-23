@@ -42,7 +42,6 @@ public class SeatUnassignmentRequestController {
 
     @PostMapping("/request")
     public ResponseEntity<?> requestUnassignSeat(@RequestBody SeatUnassignmentRequest request) {
-        // 🔹 Validate request body before proceeding
         if (request.getUser() == null || request.getUser().getId() == null) {
             return ResponseEntity.badRequest().body("User ID is missing in the request.");
         }

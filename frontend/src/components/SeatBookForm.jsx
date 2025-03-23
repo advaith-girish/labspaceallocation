@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './SeatBookForm.module.css';
 
-const   SeatBookForm = ({ onSubmit, seatUser, onUnassign }) => {
+const SeatBookForm = ({ onSubmit, seatUser, onUnassign }) => {
   console.log("SeatBookForm received seatUser:", seatUser);
 
   const [email, setEmail] = useState(seatUser?.email || '');
