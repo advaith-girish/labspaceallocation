@@ -104,3 +104,17 @@
   .monitoring-table tr:hover {
     background-color: #3b4a5b;
   }
+  .warning-container {
+    margin: 20px;
+    padding: 10px;
+    background-color: #ffcccb;
+    color: red;
+    border: 2px solid red;
+    border-radius: 5px;
+}
+
+.warning-box {
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
