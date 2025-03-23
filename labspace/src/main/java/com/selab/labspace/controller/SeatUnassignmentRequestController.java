@@ -26,17 +26,42 @@ public class SeatUnassignmentRequestController {
         this.userService = userService;
     }
 
+    // @PostMapping("/request")
+    // public ResponseEntity<SeatUnassignmentRequest>
+    // requestUnassignSeat(@RequestBody SeatUnassignmentRequest request) {
+    // Optional<User> student = userService.getUserById(request.getUser().getId());
+    // Optional<Seat> seat = seatService.getSeatById(request.getSeat().getId());
+
+    // if (student.isPresent() && seat.isPresent()) {
+    // request.setStatus("Pending");
+    // SeatUnassignmentRequest savedRequest = requestService.createRequest(request);
+    // return ResponseEntity.ok(savedRequest);
+    // }
+    // return ResponseEntity.badRequest().build();
+    // }
+
     @PostMapping("/request")
-    public ResponseEntity<SeatUnassignmentRequest> requestUnassignSeat(@RequestParam Long userId,
-            @RequestParam Long seatId) {
-        Optional<User> student = userService.getUserById(userId);
-        Optional<Seat> seat = seatService.getSeatById(seatId);
+    public ResponseEntity<?> requestUnassignSeat(@RequestBody SeatUnassignmentRequest request) {
+        // 🔹 Validate request body before proceeding
+        if (request.getUser() == null || request.getUser().getId() == null) {
+            return ResponseEntity.badRequest().body("User ID is missing in the request.");
+        }
+        if (request.getSeat() == null || request.getSeat().getId() == null) {
+            return ResponseEntity.badRequest().body("Seat ID is missing in the request.");
+        }
+
+        Optional<User> student = userService.getUserById(request.getUser().getId());
+        Optional<Seat> seat = seatService.getSeatById(request.getSeat().getId());
 
         if (student.isPresent() && seat.isPresent()) {
-            SeatUnassignmentRequest request = new SeatUnassignmentRequest(student.get(), seat.get());
-            return ResponseEntity.ok(requestService.createRequest(request));
+            request.setUser(student.get()); 
+            request.setSeat(seat.get()); 
+            request.setStatus("Pending");
+
+            SeatUnassignmentRequest savedRequest = requestService.createRequest(request);
+            return ResponseEntity.ok(savedRequest);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().body("Invalid User or Seat ID.");
     }
 
     @GetMapping("/pending")

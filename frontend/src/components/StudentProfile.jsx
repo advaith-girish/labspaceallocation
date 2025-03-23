@@ -12,7 +12,7 @@ function StudentProfile() {
   const [labs, setLabs] = useState([]); 
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [selectedLab, setSelectedLab] = useState(""); 
-  const [isUnassignRequested, setIsUnassignRequested] = useState(false); // Track unassign request
+  const [isUnassignRequested, setIsUnassignRequested] = useState(false);
 
   // Fetch seat information if the user is a student
   async function fetchSeatInfo() {
@@ -85,13 +85,15 @@ function StudentProfile() {
       return;
     }
 
+    console.log("Ids are: ", user.id, seatInfo.id);
+
     try {
       const response = await fetch(`/api/seat-unassign-requests/request`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: user.id,
-          seatId: seatInfo.id
+          user: { id: user.id }, 
+          seat: { id: seatInfo.id }
         })
       });
 
@@ -159,17 +161,15 @@ function StudentProfile() {
           </div>
         </div>
 
-        {/* Show "Request Seat" button if student has no seat */}
         {isStudent && !seatInfo && (
           <button className="saveButton" onClick={() => setShowRequestModal(true)}>
             Request Seat
           </button>
         )}
 
-        {/* Show "Request Unassign Seat" button if student has an assigned seat */}
         {isStudent && seatInfo && (
           <button 
-            className="unassignButton" 
+            className="saveButton" 
             onClick={submitUnassignRequest} 
             disabled={isUnassignRequested}
           >
