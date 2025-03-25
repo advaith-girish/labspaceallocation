@@ -5,6 +5,7 @@ const AddLab = () => {
   const [labData, setLabData] = useState({
     name: "",
     location: "",
+    labType: "Sitting-only", // Default value
     adminEmail: "",
     file: null,
   });
@@ -22,28 +23,19 @@ const AddLab = () => {
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(svgText, "image/svg+xml");
 
-    // Ensure the SVG is parsed correctly
     if (xmlDoc.documentElement.nodeName === "parsererror") {
       throw new Error("Error parsing SVG file");
     }
 
-    // Debugging: Log the SVG structure to ensure it's parsed correctly
     console.log("Parsed SVG:", xmlDoc);
-
-    // Use Array.from to handle NodeList properly
     const rects = Array.from(xmlDoc.querySelectorAll("rect"));
-
-    // Debugging: Log the rect elements to ensure they are being selected
     console.log("Rect elements:", rects);
 
-    // Extract seat numbers from the id attributes of rect elements
     const seatNumbers = rects
-      .map((rect) => rect.getAttribute("id")) // Use getAttribute to explicitly fetch the id
-      .filter((id) => id && /^[A-Z]\d+$/.test(id)); // Ensure the id matches the expected format (e.g., A1, B2)
+      .map((rect) => rect.getAttribute("id"))
+      .filter((id) => id && /^[A-Z]\d+$/.test(id));
 
-    // Debugging: Log the extracted seat numbers
     console.log("Extracted seat numbers:", seatNumbers);
-
     return seatNumbers;
   };
 
@@ -63,6 +55,7 @@ const AddLab = () => {
         body: JSON.stringify({
           name: labData.name,
           location: labData.location,
+          labType: labData.labType, // ✅ Sending Lab Type
           admin: { id: adminId },
         }),
       });
@@ -95,18 +88,30 @@ const AddLab = () => {
             <label>Lab Name</label>
             <input type="text" name="name" placeholder="Enter lab name" value={labData.name} onChange={handleChange} required />
           </div>
+          
           <div className="form-group">
             <label>Location</label>
             <input type="text" name="location" placeholder="Enter location" value={labData.location} onChange={handleChange} required />
           </div>
+
+          <div className="form-group">
+            <label>Lab Type</label>
+            <select name="labType" value={labData.labType} onChange={handleChange} required>
+              <option value="Desktop-based">Desktop-based</option>
+              <option value="Sitting-only">Sitting-only</option>
+            </select>
+          </div>
+
           <div className="form-group">
             <label>Admin Email</label>
             <input type="email" name="adminEmail" placeholder="Enter admin email" value={labData.adminEmail} onChange={handleChange} required />
           </div>
+
           <div className="form-group">
             <label>Upload SVG</label>
             <input type="file" name="file" accept=".svg" onChange={handleChange} required />
           </div>
+
           <button type="submit" className="submit-btn">Add Lab</button>
         </form>
       </div>

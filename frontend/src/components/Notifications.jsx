@@ -56,6 +56,7 @@ const Notifications = () => {
       .catch((error) => console.error("Error fetching unassign requests:", error));
   }, [labAdminLabs]);
 
+
   const handleRequestAction = async (requestId, status, isUnassign) => {
     const url = isUnassign
       ? `http://localhost:8080/api/seat-unassign-requests/update/${requestId}/${status}`
@@ -80,6 +81,7 @@ const Notifications = () => {
     }
   };
 
+  
   return (
     <div className={styles.container}>
       <div className={styles.header}>

@@ -10,4 +10,6 @@ import java.util.List;
 public interface SeatRequestRepository extends JpaRepository<SeatRequest, Long> {
     List<SeatRequest> findByStatus(String status);
     List<SeatRequest> findByLab(Lab lab);
+
+    List<SeatRequest> findByLabIdAndStatus(Long labId, String status);
 }

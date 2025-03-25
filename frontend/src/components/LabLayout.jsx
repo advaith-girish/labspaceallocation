@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./LabLayout.css";
 import SeatBookForm from "./SeatBookForm";
 
-const LabLayout = ({ seats }) => {
+const LabLayout = ({ seats, labId }) => {
   const [showForm, setShowForm] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState(null);
 
@@ -22,7 +22,7 @@ const LabLayout = ({ seats }) => {
     console.log("Submitting for seat:", selectedSeat.id);
     console.log("User:", name, email);
 
-    let studentId;
+    let studentId, requestId;
     try {
       const response = await fetch(`http://localhost:8080/api/users/email/${email}`, {
         method: "GET",
@@ -48,16 +48,35 @@ const LabLayout = ({ seats }) => {
         method: "PUT",
         headers: { "Content-Type": "application/json" }
       });
+
       if (!response.ok) throw new Error("Failed to assign seat");
 
-      window.location.reload();
       alert("Seat assigned successfully!");
+
+      const pendingRequestsResponse = await fetch(`http://localhost:8080/api/seat-requests/pending/${labId}`);
+      const pendingRequests = await pendingRequestsResponse.json();
+
+      const matchingRequest = pendingRequests.find(req => req.studentEmail === email);
+      console.log("Matching request:", matchingRequest);
+
+      if (matchingRequest) {
+        requestId = matchingRequest.id;
+
+        await fetch(`http://localhost:8080/api/seat-requests/update/${requestId}/Approved`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" }
+        });
+
+        console.log(`Seat request ${requestId} marked as Approved.`);
+      }
+
+      window.location.reload();
       closeForm();
-      
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
 
   const unassignSeat = async () => {
     console.log("Unassigning seat:", selectedSeat.id);
@@ -104,9 +123,10 @@ const LabLayout = ({ seats }) => {
       {showForm && selectedSeat && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <SeatBookForm 
-              onSubmit={submitForm} 
-              seatUser={selectedSeat.assignedUser} 
+            <SeatBookForm
+              labId={labId}
+              onSubmit={submitForm}
+              seatUser={selectedSeat.assignedUser}
               onUnassign={unassignSeat}
             />
             <button className="close-btn" onClick={closeForm}>✖</button>

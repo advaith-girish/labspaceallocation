@@ -34,6 +34,7 @@ function ListLabs() {
                         <div className='labCard'>
                             <h3>{lab.name}</h3>
                             <p>Location: {lab.location}</p>
+                            <p>Lab-type: {lab.labType}</p>
                         </div>
                     </a>
                 ))}

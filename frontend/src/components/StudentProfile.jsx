@@ -74,7 +74,7 @@ function StudentProfile() {
     }
   }
 
-  // ✅ Request to unassign seat
+  // Request to unassign seat
   async function submitUnassignRequest() {
     if (!seatInfo) {
       alert("You don't have a seat assigned.");

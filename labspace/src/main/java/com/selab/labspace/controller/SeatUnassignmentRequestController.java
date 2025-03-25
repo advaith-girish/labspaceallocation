@@ -26,20 +26,6 @@ public class SeatUnassignmentRequestController {
         this.userService = userService;
     }
 
-    // @PostMapping("/request")
-    // public ResponseEntity<SeatUnassignmentRequest>
-    // requestUnassignSeat(@RequestBody SeatUnassignmentRequest request) {
-    // Optional<User> student = userService.getUserById(request.getUser().getId());
-    // Optional<Seat> seat = seatService.getSeatById(request.getSeat().getId());
-
-    // if (student.isPresent() && seat.isPresent()) {
-    // request.setStatus("Pending");
-    // SeatUnassignmentRequest savedRequest = requestService.createRequest(request);
-    // return ResponseEntity.ok(savedRequest);
-    // }
-    // return ResponseEntity.badRequest().build();
-    // }
-
     @PostMapping("/request")
     public ResponseEntity<?> requestUnassignSeat(@RequestBody SeatUnassignmentRequest request) {
         if (request.getUser() == null || request.getUser().getId() == null) {

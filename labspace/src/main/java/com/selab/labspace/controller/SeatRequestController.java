@@ -38,10 +38,9 @@ public class SeatRequestController {
     }
 
     @GetMapping("/pending/{labId}")
-    public List<SeatRequest> getLabPendingRequests(@PathVariable Long labId) {
-        Optional<Lab> labOpt = labRepository.findById(labId);
-        return labOpt.map(seatRequestRepository::findByLab).orElse(null);
-    }
+public List<SeatRequest> getLabPendingRequests(@PathVariable Long labId) {
+    return seatRequestRepository.findByLabIdAndStatus(labId, "Pending");
+}
 
     @PutMapping("/update/{requestId}/{status}")
     public String updateRequest(@PathVariable Long requestId, @PathVariable String status) {
