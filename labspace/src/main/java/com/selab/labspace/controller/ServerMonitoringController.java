@@ -14,8 +14,8 @@ public class ServerMonitoringController {
 
     private static final String USERNAME = "adi";
     private static final String PASSWORD = "1234";
-    private static final String[] VM_IPS = { "192.168.72.235","192.168.72.172" };
-    private static final double CPU_THRESHOLD = 80.0;  // CPU usage threshold for warning
+    private static final String[] VM_IPS = { "172.20.85.122", "172.20.85.45", "172.20.85.47" }; //change the ip addresses here
+    private static final double CPU_THRESHOLD = 80.0;
 
     @GetMapping("/stats")
     public Map<String, Map<String, String>> getAllServerStats() {
@@ -23,12 +23,16 @@ public class ServerMonitoringController {
 
         for (String ip : VM_IPS) {
             Map<String, String> stats = getServerStats(ip);
-            stats.put("ip", ip);  // Include the IP address in the response
-            
-            // Check CPU usage and add a warning message if it exceeds the threshold
-            double cpuUsage = Double.parseDouble(stats.get("cpu"));
-            if (cpuUsage > CPU_THRESHOLD) {
-                stats.put("warning", "High CPU usage detected!");  // Add a warning message
+            stats.put("ip", ip);
+
+            // Check CPU usage and add a warning if needed
+            try {
+                double cpuUsage = Double.parseDouble(stats.get("cpu"));
+                if (cpuUsage > CPU_THRESHOLD) {
+                    stats.put("warning", "High CPU usage detected!");
+                }
+            } catch (NumberFormatException e) {
+                stats.put("cpu", "N/A"); // Fallback in case of parsing issues
             }
 
             allStats.put(ip, stats);
@@ -40,8 +44,8 @@ public class ServerMonitoringController {
     private Map<String, String> getServerStats(String host) {
         Map<String, String> stats = new HashMap<>();
         try {
-            // Using 'top' instead of 'sar' for accurate real-time CPU usage
-            stats.put("cpu", executeCommand(host, "top -bn1 | grep 'Cpu(s)' | awk '{print 100 - $8}'"));
+            // Use improved sar command with multiple samples
+            stats.put("cpu", executeCommand(host, "sar -u 3 2 | awk '/Average:/ {print 100 - $(NF)}'"));
             stats.put("memory", executeCommand(host, "free -m | awk '/Mem:/ {printf \"%.2f\", $3/$2 * 100}'"));
             stats.put("disk", executeCommand(host, "df -h / | awk 'NR==2 {print $5}'"));
             stats.put("username", executeCommand(host, "whoami").trim());
@@ -60,24 +64,20 @@ public class ServerMonitoringController {
             session.setPassword(PASSWORD);
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
-    
+
             ChannelExec channel = (ChannelExec) session.openChannel("exec");
             channel.setCommand(command);
             channel.setInputStream(null);
             channel.setErrStream(System.err);
-    
+
             java.io.InputStream in = channel.getInputStream();
-            if (in == null) {
-                throw new RuntimeException("Failed to execute command on " + host + ": Input stream is null");
-            }
-    
             channel.connect();
-    
+
             int nextByte;
             while ((nextByte = in.read()) != -1) {
                 output.append((char) nextByte);
             }
-    
+
             channel.disconnect();
             session.disconnect();
         } catch (Exception e) {
@@ -85,5 +85,4 @@ public class ServerMonitoringController {
         }
         return output.toString().trim();
     }
-    
 }

@@ -21,17 +21,22 @@ public class ServerStatsWebSocketHandler extends TextWebSocketHandler {
             public void run() {
                 try {
                     String cpuUsage = executeCommand("sar -u 1 1 | grep 'Average' | awk '{print 100 - $8}'");
+                    cpuUsage = cpuUsage.matches("\\d+(\\.\\d+)?") ? cpuUsage : "0";  // Ensure valid number
                     String memoryUsage = executeCommand("free -m | awk '/Mem:/ {printf \"%.2f\", $3/$2 * 100}'");
                     String diskUsage = executeCommand("df -h / | awk 'NR==2 {print $5}'");
 
-                    String jsonData = "{ \"cpu\": \"" + cpuUsage + "\", \"memory\": \"" + memoryUsage + "\", \"disk\": \"" + diskUsage + "\" }";
+                    String jsonData = String.format(
+                        "{ \"cpu\": \"%s\", \"memory\": \"%s\", \"disk\": \"%s\" }",
+                        cpuUsage, memoryUsage, diskUsage
+                    );
+
                     session.sendMessage(new TextMessage(jsonData));
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-        }, 0, 5000); // Send data every 5 seconds
+        }, 0, 5000);
     }
 
     @Override
