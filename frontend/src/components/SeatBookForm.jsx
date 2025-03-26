@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './SeatBookForm.module.css';
+
+import {useNavigate} from 'react-router-dom'
 import { sendEmail } from '../utils/sendEmail';
 
 const SeatBookForm = ({ onSubmit, seatUser, onUnassign, labId }) => {
+  const navigate=useNavigate();
   console.log("SeatBookForm received seatUser:", seatUser);
 
   const [email, setEmail] = useState(seatUser?.email || '');
@@ -183,7 +186,16 @@ const SeatBookForm = ({ onSubmit, seatUser, onUnassign, labId }) => {
         <div className={styles.buttonGroup}>
           <button type="submit" className={styles.saveButton}>Save</button>
           <button type="button" className={styles.deleteButton} onClick={handleDelete}>Delete</button>
+          <br></br>
+          <button 
+  type="button" 
+  className={styles.saveButton} 
+  onClick={()=>navigate("/lab_book")}
+  style={{ backgroundColor: 'grey', color: 'white'}}>
+  Book Whole Lab </button>
+
         </div>
+        
       </form>
     </div>
   );
