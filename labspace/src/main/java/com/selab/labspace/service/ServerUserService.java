@@ -17,4 +17,12 @@ public class ServerUserService {
     public List<ServerUser> getUsersByLabId(int labId) {
         return serverUserRepository.findByLabId(labId);
     }
+
+    public List<ServerUser> getAllServerUsers() {
+        return serverUserRepository.findAll();
+    }
+
+    public List<ServerUser> getUsersByLabAdmin(Long adminId) {
+        return serverUserRepository.findByLabAdmin(adminId);
+    }
 }

@@ -106,7 +106,7 @@ const AddLab = () => {
             <label>Admin Email</label>
             <input type="email" name="adminEmail" placeholder="Enter admin email" value={labData.adminEmail} onChange={handleChange} required />
           </div>
-
+{/*  */}
           <div className="form-group">
             <label>Upload SVG</label>
             <input type="file" name="file" accept=".svg" onChange={handleChange} required />
