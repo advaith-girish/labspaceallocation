@@ -14,6 +14,7 @@ import ListLabs from './components/ListLabs.jsx'
 import Notifications from './components/Notifications.jsx'
 import TotalStats from './components/TotalStats.jsx'
 import AddLabAdmin from './components/AddLabAdmin.jsx'
+import AddDesktopLab from './components/AddDesktopLab.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -34,6 +35,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/forgot-password" element={(<h1>Contact Scene Admin : PGB</h1>)} />
         <Route path="/addlabadmin" element={<AddLabAdmin toAdd={'LAB_ADMIN'}/>} />
         <Route path="/addstudent" element={<AddLabAdmin toAdd={'STUDENT'}/>} />
+        <Route path="/addserver" element={<AddDesktopLab/>} />
+      
       </Routes>
     </Router>
   </StrictMode>,
