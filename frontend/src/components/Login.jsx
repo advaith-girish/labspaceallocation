@@ -38,6 +38,7 @@ const Login = () => {
       console.error("Login error:", error);
       alert("Something went wrong!");
     }
+    navigate("/profile")
   };
 
   return (
