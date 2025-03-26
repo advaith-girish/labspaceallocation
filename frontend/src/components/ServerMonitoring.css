@@ -118,3 +118,25 @@
     margin-bottom: 10px;
     font-weight: bold;
 }
+button {
+  background-color: #3498db; /* Blue color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s;
+  display: block;
+  margin: 20px ; /* Centers the button */
+}
+
+button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+button:active {
+  background-color: #1f6690; /* Even darker blue when clicked */
+  transform: scale(0.95); /* Shrinks a little when clicked */
+}
