@@ -30,7 +30,8 @@ function Intro() {
                             <button onClick={handleLogout} className="logout-button">Logout</button>
                         </div>
                     </div>
-
+                    <div className='card-container'> 
+                    <img src='/assets/6815535.webp' alt="IIITD" />
                     <div className="card-grid">
                         <div className="card"><h3>Overview Matrix</h3></div>
                         <div className="card"><h3>Lab Space Management</h3></div>
@@ -40,6 +41,7 @@ function Intro() {
                         {role === 'ADMIN' && <Link to="/addlabadmin" className="card"><h3>Add Admin</h3></Link>}
                         {(role === 'ADMIN' || role === 'LAB_ADMIN') && <Link to="/addstudent" className="card"><h3>Add Student</h3></Link>}
 
+                    </div>
                     </div>
                 </div>
             </div>
