@@ -38,6 +38,7 @@ function Intro() {
                         <Link to="/notifications" className="card"><h3>Notifications</h3></Link>
                         <Link to="/server-monitoring" className="card"><h3>Server Monitoring</h3></Link>
                         {role === 'ADMIN' && <Link to="/addlabadmin" className="card"><h3>Add Admin</h3></Link>}
+                        {(role === 'ADMIN' || role === 'LAB_ADMIN') && <Link to="/addstudent" className="card"><h3>Add Student</h3></Link>}
 
                     </div>
                 </div>

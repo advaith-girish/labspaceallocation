@@ -21,7 +21,7 @@ public class ServerStatsWebSocketHandler extends TextWebSocketHandler {
             public void run() {
                 try {
                     String cpuUsage = executeCommand("sar -u 1 1 | grep 'Average' | awk '{print 100 - $8}'");
-                    cpuUsage = cpuUsage.matches("\\d+(\\.\\d+)?") ? cpuUsage : "0";  // Ensure valid number
+                    cpuUsage = cpuUsage.matches("\\d+(\\.\\d+)?") ? cpuUsage : "0";
                     String memoryUsage = executeCommand("free -m | awk '/Mem:/ {printf \"%.2f\", $3/$2 * 100}'");
                     String diskUsage = executeCommand("df -h / | awk 'NR==2 {print $5}'");
 

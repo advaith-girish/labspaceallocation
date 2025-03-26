@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styles from "./styles/AddLabAdmin.module.css";
 
-const AddLabAdmin = () => {
+const AddLabAdmin = ({toAdd}) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    role: "LAB_ADMIN" 
+    role: toAdd 
   });
   const [message, setMessage] = useState("");
 
@@ -28,7 +28,7 @@ const AddLabAdmin = () => {
             name: formData.name,
             email: formData.email,
             password: formData.password,
-            role: "LAB_ADMIN"
+            role: toAdd
           })
       });
 
@@ -36,17 +36,17 @@ const AddLabAdmin = () => {
         throw new Error("Failed to register Lab Admin");
       }
 
-      setMessage("Lab Admin registered successfully!");
-      setFormData({ name: "", email: "", password: "", role: "LAB_ADMIN" });
+      setMessage("Registered successfully!");
+      setFormData({ name: "", email: "", password: "", role: toAdd });
     } catch (error) {
       console.error("Error:", error);
-      setMessage("Error: Unable to register Lab Admin.");
+      setMessage("Error: Unable to register.");
     }
   };
 
   return (
     <div className={styles.container}>
-      <h2>Add New Lab Admin</h2>
+      <h2>Add New {toAdd}</h2>
       {message && <p className={styles.message}>{message}</p>}
 
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -59,7 +59,7 @@ const AddLabAdmin = () => {
         <label>Password</label>
         <input type="password" name="password" value={formData.password} onChange={handleChange} required />
 
-        <button type="submit" className={styles.submitButton}>Register Admin</button>
+        <button type="submit" className={styles.submitButton}>Register {toAdd}</button>
       </form>
     </div>
   );
