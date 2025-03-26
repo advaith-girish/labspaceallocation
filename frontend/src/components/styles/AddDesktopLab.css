@@ -1,0 +1,105 @@
+.add-lab-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    background-color: #f7fafc;
+  }
+  
+  /* Form container */
+  .add-lab-form {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 32px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Title styling */
+  .add-lab-form h2 {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #4a5568;
+    margin-bottom: 32px;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    width: 95%;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 8px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #4a5568;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .form-group input:focus {
+    border-color: #5a67d8;
+    box-shadow: 0 0 0 2px rgba(85, 106, 217, 0.3);
+  }
+  
+  /* CSV Preview Styling */
+  .csv-preview {
+    margin-top: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .csv-preview table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .csv-preview th, .csv-preview td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .csv-preview th {
+    background: #f3f4f6;
+    font-weight: bold;
+  }
+  
+  /* Submit Button */
+  .submit-btn {
+    width: 100%;
+    background-color: #5a67d8;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background-color: #4c51bf;
+    transform: scale(1.05);
+  }
+  
+  .submit-btn:focus {
+    outline: none;
+  }
+  

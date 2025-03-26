@@ -143,3 +143,87 @@
   .iconButton:hover {
     background: #f0f0f0;
   }
+
+/* 🔹 Notifications Container */
+.notificationsContainer {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 700px;
+  margin-top: 1.5rem;
+}
+
+/* 🔹 Notifications Header */
+.notificationsContainer h3 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+/* 🔹 No Notifications Message */
+.noNotifications {
+  font-size: 1rem;
+  color: #7f8c8d;
+  text-align: center;
+  padding: 10px;
+}
+
+/* 🔹 Notification List */
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* 🔹 Individual Notification */
+.notificationItem {
+  background: #ecf0f1;
+  padding: 1rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 🔹 Notification Text */
+.notificationText {
+  font-size: 1rem;
+}
+
+/* 🔹 Button Container */
+.buttonContainer {
+  display: flex;
+  gap: 8px;
+}
+
+/* 🔹 Buttons */
+.approveButton, .rejectButton {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.approveButton {
+  background: #27ae60;
+  color: white;
+}
+
+.rejectButton {
+  background: #e74c3c;
+  color: white;
+}
+
+.approveButton:hover {
+  background: #219150;
+}
+
+.rejectButton:hover {
+  background: #c0392b;
+}

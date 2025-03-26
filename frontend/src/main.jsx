@@ -8,16 +8,15 @@ import Labs from './components/Labs.jsx'
 import Login from './components/Login.jsx'
 import SeatBookForm from './components/SeatBookForm.jsx'
 import StudentProfile from './components/StudentProfile.jsx'
-<<<<<<< Updated upstream
-=======
 import ServerMonitoring from './components/ServerMonitoring.jsx'
 import AddLab from './components/AddLab.jsx'
 import ListLabs from './components/ListLabs.jsx'
 import Notifications from './components/Notifications.jsx'
 import TotalStats from './components/TotalStats.jsx'
 import AddLabAdmin from './components/AddLabAdmin.jsx'
+
 import LabBooking from './components/Wholelab.jsx'
->>>>>>> Stashed changes
+import AddDesktopLab from './components/AddDesktopLab.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,21 +24,24 @@ createRoot(document.getElementById('root')).render(
       <Routes>
         <Route path="/" element={<App/>} />
         <Route path="/dashboard/:id" element={<Dashboard />} />
-        <Route path="/labs" element={<Labs/>} />
+        <Route path="/labs" element={<Labs/>} >
+          <Route index element={<ListLabs/>} />
+          <Route path="addlab" element={<AddLab/>} />
+        </Route>
         <Route path="/login" element={<Login/>} />
         <Route path="/book" element={<SeatBookForm/>} />
         <Route path="/profile" element={<StudentProfile/>} />
-<<<<<<< Updated upstream
-        <Route path="/server-monitoring" element={(<h1>Coming Soon...</h1>)} />
-=======
         <Route path="/server-monitoring" element={<ServerMonitoring/>} />  
         <Route path="/notifications" element={<Notifications/>} />
         <Route path="/totalstats" element={<TotalStats/>} />
         <Route path="/forgot-password" element={(<h1>Contact Scene Admin : PGB</h1>)} />
-        <Route path="/addlabadmin" element={<AddLabAdmin/>} />
         <Route path="/lab_book" element={<LabBooking/>} />
->>>>>>> Stashed changes
+
+        <Route path="/addlabadmin" element={<AddLabAdmin toAdd={'LAB_ADMIN'}/>} />
+        <Route path="/addstudent" element={<AddLabAdmin toAdd={'STUDENT'}/>} />
+        <Route path="/addserver" element={<AddDesktopLab/>} />
+      
       </Routes>
     </Router>
-  </StrictMode>,
+  </StrictMode>
 )

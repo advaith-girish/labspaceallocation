@@ -2,25 +2,171 @@ import React, { useEffect, useState } from 'react';
 import styles from './Dashboard.module.css';
 import Sidebar from './Sidebar';
 import LabLayout from './LabLayout';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Dashboard = () => {
-  const labId = useParams().id;
+  const { id: labId } = useParams();
   const [activeMenu, setActiveMenu] = useState('LABLAYOUT');
-  const layouts = 'BDL';
-  const [seats, setseats] = useState([]);
+  const [labName, setLabName] = useState('Loading...');
+  const [seats, setSeats] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unassignRequests, setUnassignRequests] = useState([]);
+
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
-    // Fetch layouts for the lab
-    async function getData() {
-      await fetch(`http://localhost:8080/api/seats/lab/${labId}`)
+    async function fetchLabData() {
+      try {
+        const response = await fetch(`http://localhost:8080/api/labs/${labId}`);
+        if (!response.ok) throw new Error('Failed to fetch lab details');
+
+        const data = await response.json();
+        setLabName(data.name || 'Unknown Lab');
+      } catch (error) {
+        console.error('Error fetching lab details:', error);
+        setLabName('Error Loading Lab');
+      }
+    }
+
+    async function fetchSeatsData() {
+      try {
+        const response = await fetch(`http://localhost:8080/api/seats/lab/${labId}`);
+        if (!response.ok) throw new Error('Failed to fetch seats');
+
+        const data = await response.json();
+        setSeats(data);
+      } catch (error) {
+        console.error('Error fetching seats:', error);
+      }
+    }
+
+    fetchLabData();
+    fetchSeatsData();
+  }, [labId]);
+
+  useEffect(() => {
+    if (showNotifications) {
+      fetch(`http://localhost:8080/api/seat-requests/pending/${labId}`)
         .then(response => response.json())
         .then(data => {
-          setseats(data); 
-        });
+          const filteredRequests = data.filter(req => req.lab.id === parseInt(labId));
+          setNotifications(filteredRequests);
+        })
+        .catch(error => console.error("Error fetching requests:", error));
+
+      fetch(`http://localhost:8080/api/seat-unassign-requests/lab/${labId}`)
+        .then(response => response.json())
+        .then(data => {
+          const pendingUnassignRequests = data.filter(req => req.status === "Pending");
+          setUnassignRequests(pendingUnassignRequests);
+        })
+        .catch(error => console.error("Error fetching unassign requests:", error));
     }
-    getData();
-  }, []);
+  }, [showNotifications]);
+
+  const handleRequestAction = async (requestId, status) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/seat-requests/update/${requestId}/${status}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to update request");
+
+      alert(`Request ${status.toLowerCase()} successfully!`);
+      setNotifications(notifications.filter(req => req.id !== requestId));
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  // const handleUnassignRequestAction = async (requestId, status) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:8080/api/seat-unassign-requests/update/${requestId}/${status}`,
+  //       {
+  //         method: "PUT",
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+
+  //     if (!response.ok) throw new Error("Failed to update unassign request");
+
+  //     alert(`Unassign request ${status.toLowerCase()} successfully!`);
+  //     setUnassignRequests(unassignRequests.filter(req => req.id !== requestId));
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+
+  const handleUnassignRequestAction = async (requestId, seatId, status) => {
+    try {
+      console.log("Request ID:", requestId);
+      console.log("Seat ID:", seatId);
+      console.log("Status:", status);
+
+      if (!window.confirm(`Are you sure you want to delete this seat ${status}?`)) {
+        return;
+      }
+
+      if (status === "Approved") {
+        const unassignResponse = await fetch(`http://localhost:8080/api/seats/${seatId}/unassign`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        });
+  
+        if (!unassignResponse.ok) throw new Error("Failed to unassign seat");
+      }
+  
+      // to update the request status
+      const response = await fetch(
+        `http://localhost:8080/api/seat-unassign-requests/update/${requestId}/${status}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+  
+      if (!response.ok) throw new Error("Failed to update unassign request");
+  
+      alert(`Unassign request ${status.toLowerCase()} successfully!`);
+      setUnassignRequests(unassignRequests.filter(req => req.id !== requestId));
+      window.location.reload(); 
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  
+
+  const deleteLab = async () => {
+    if (!window.confirm("Are you sure you want to delete this lab?")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/labs/${labId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete lab: ${response.statusText}`);
+      }
+
+      alert("Lab deleted successfully!");
+      navigate("/labs");
+    } catch (error) {
+      console.error("Error deleting lab:", error);
+      alert("Failed to delete lab.");
+    }
+  };
+
+  
 
   return (
     <div className={styles.container}>
@@ -39,41 +185,100 @@ const Dashboard = () => {
           <div className={styles.content}>
             <div className={styles.layoutHeader}>
               <h2>Existing Layouts</h2>
-              <button className={styles.primaryButton}>
-                + Add New Layout
-              </button>
+              {user.role === 'ADMIN' && (
+                <button className={styles.primaryButton} onClick={deleteLab}>
+                  Delete this Lab
+                </button>
+              )}
             </div>
 
             <div className={styles.layoutGrid}>
-
-              {/*  
-              {layouts.map((layout, index) => (
-                <div key={index} className={styles.layoutCard}>
-                  <h3>{layout}</h3>
-                  <LabLayout />
-                </div>
-              ))}
-              */}
-
               <div className={styles.layoutCard}>
-                <h3>{layouts}</h3>
-
-                {/* Replace Image with LabLayout Component */}
-                <LabLayout seats={seats}/>
-
-                <div className={styles.cardActions}>
-                  {/* <button className={styles.iconButton}>📊</button> */}
-                  {/* <button className={styles.iconButton}>✏️</button> */}
-                  {/* <button className={styles.iconButton}>🗑️</button> */}
-                </div>
+                <h3>{labName}</h3>
+                <LabLayout seats={seats} labId={labId} />
               </div>
-
-
             </div>
 
-            <button className={styles.secondaryButton}>
-              Show All Layouts
+            <button
+              className={styles.secondaryButton}
+              onClick={() => setShowNotifications(!showNotifications)}
+            >
+              {showNotifications ? "Hide Notifications" : "Show Notifications"}
             </button>
+
+            {showNotifications && (
+              <div className={styles.notificationsContainer}>
+                <div className={styles.notificationSection}>
+                  <h3>Pending Seat Requests</h3>
+                  {notifications.length === 0 ? (
+                    <p className={styles.noNotifications}>No pending requests for this lab.</p>
+                  ) : (
+                    <ul className={styles.notificationList}>
+                      {notifications.map((req) => (
+                        <li key={req.id} className={styles.notificationItem}>
+                          <span className={styles.notificationText}>
+                            <b>{req.studentName}</b> ({req.studentEmail}) requested a seat
+                          </span>
+                          <div className={styles.buttonContainer}>
+                            {/* <button
+                              className={styles.approveButton}
+                              onClick={() => handleRequestAction(req.id, "Approved")}
+                            >
+                              Approve
+                            </button> */}
+                            <button
+                              className={styles.approveButton}
+                              onClick={() => {
+                                alert("Seat can be alloted for this student, by clicking any free seat in the layout");
+                              }}
+                            >
+                              Approve
+                            </button> 
+                            <button
+                              className={styles.rejectButton}
+                              onClick={() => handleRequestAction(req.id, "Rejected")}
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                <div className={styles.notificationSection}>
+                  <h3>Pending Seat Unassignment Requests</h3>
+                  {unassignRequests.length === 0 ? (
+                    <p className={styles.noNotifications}>No unassignment requests for this lab.</p>
+                  ) : (
+                    <ul className={styles.notificationList}>
+                      {unassignRequests.map((req) => (
+                        <li key={req.id} className={styles.notificationItem}>
+                          <span className={styles.notificationText}>
+                            <b>{req.user.name}</b> ({req.user.email}) requested to unassign seat <b>{req.seat.seatNumber}</b>
+                          </span>
+                          <div className={styles.buttonContainer}>
+                            <button
+                              className={styles.approveButton}
+                              onClick={() => handleUnassignRequestAction(req.id, req.seat.id,"Approved")}
+                            >
+                              Approve
+                            </button>
+                            <button
+                              className={styles.rejectButton}
+                              onClick={() => handleUnassignRequestAction(req.id, req.seat.id, "Rejected")}
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </main>

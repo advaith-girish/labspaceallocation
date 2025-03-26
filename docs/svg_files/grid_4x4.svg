@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" style="background-color:white;">
+  <rect id="A1" x="20" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="60.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A1</text>
+  <rect id="A2" x="110" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="150.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A2</text>
+  <rect id="A3" x="200" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="240.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A3</text>
+  <rect id="A4" x="290" y="20" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="330.0" y="65.0" font-size="20" text-anchor="middle" fill="black">A4</text>
+  <rect id="B1" x="20" y="110" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="60.0" y="155.0" font-size="20" text-anchor="middle" fill="black">B1</text>
+  <rect id="B2" x="110" y="110" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="150.0" y="155.0" font-size="20" text-anchor="middle" fill="black">B2</text>
+  <rect id="B3" x="200" y="110" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="240.0" y="155.0" font-size="20" text-anchor="middle" fill="black">B3</text>
+  <rect id="B4" x="290" y="110" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="330.0" y="155.0" font-size="20" text-anchor="middle" fill="black">B4</text>
+  <rect id="C1" x="20" y="200" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="60.0" y="245.0" font-size="20" text-anchor="middle" fill="black">C1</text>
+  <rect id="C2" x="110" y="200" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="150.0" y="245.0" font-size="20" text-anchor="middle" fill="black">C2</text>
+  <rect id="C3" x="200" y="200" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="240.0" y="245.0" font-size="20" text-anchor="middle" fill="black">C3</text>
+  <rect id="C4" x="290" y="200" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="330.0" y="245.0" font-size="20" text-anchor="middle" fill="black">C4</text>
+  <rect id="D1" x="20" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="60.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D1</text>
+  <rect id="D2" x="110" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="150.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D2</text>
+  <rect id="D3" x="200" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="240.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D3</text>
+  <rect id="D4" x="290" y="290" width="80" height="80" fill="white" stroke="black" stroke-width="2"/>
+  <text x="330.0" y="335.0" font-size="20" text-anchor="middle" fill="black">D4</text>
+</svg>
