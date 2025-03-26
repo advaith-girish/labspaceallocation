@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './SeatBookForm.module.css';
+import { sendEmail } from '../utils/sendEmail';
 
 const SeatBookForm = ({ onSubmit, seatUser, onUnassign, labId }) => {
   console.log("SeatBookForm received seatUser:", seatUser);
@@ -74,6 +75,8 @@ const SeatBookForm = ({ onSubmit, seatUser, onUnassign, labId }) => {
       );
 
       if (!response.ok) throw new Error("Failed to assign seat");
+
+      await sendEmail(email);
 
       alert("Seat assigned successfully!");
       setPendingRequests(pendingRequests.filter(req => req.studentEmail !== selectedStudent));

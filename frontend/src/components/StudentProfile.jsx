@@ -19,7 +19,7 @@ function StudentProfile() {
         console.log(`Fetching seat for user ID: ${user.id}`);
         const response = await fetch(`/api/seats/user/${user.id}`);
         const seatData = await response.json();
-        console.log("Fetched seat info:", seatData); // 🔍 Debug log
+        console.log("Fetched seat info:", seatData);
   
         if (!seatData.lab) {
           console.error("Lab data is missing from the API response!");

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./LabLayout.css";
 import SeatBookForm from "./SeatBookForm";
+import { sendEmail } from "../utils/sendEmail";
 
 const LabLayout = ({ seats, labId }) => {
   const [showForm, setShowForm] = useState(false);
@@ -70,6 +71,7 @@ const LabLayout = ({ seats, labId }) => {
         console.log(`Seat request ${requestId} marked as Approved.`);
       }
 
+      await sendEmail(email);
       window.location.reload();
       closeForm();
     } catch (error) {

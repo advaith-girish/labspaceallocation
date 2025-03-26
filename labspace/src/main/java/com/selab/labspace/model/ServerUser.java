@@ -24,7 +24,6 @@ public class ServerUser {
     @JsonBackReference("lab-server-users") // Prevents recursion in serialization
     private Lab lab;
 
-    // Constructors
     public ServerUser() {}
 
     public ServerUser(String ipAddress, String username, String password, Lab lab) {

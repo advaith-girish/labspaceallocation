@@ -85,8 +85,45 @@ const Dashboard = () => {
     }
   };
 
-  const handleUnassignRequestAction = async (requestId, status) => {
+  // const handleUnassignRequestAction = async (requestId, status) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:8080/api/seat-unassign-requests/update/${requestId}/${status}`,
+  //       {
+  //         method: "PUT",
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+
+  //     if (!response.ok) throw new Error("Failed to update unassign request");
+
+  //     alert(`Unassign request ${status.toLowerCase()} successfully!`);
+  //     setUnassignRequests(unassignRequests.filter(req => req.id !== requestId));
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
+
+  const handleUnassignRequestAction = async (requestId, seatId, status) => {
     try {
+      console.log("Request ID:", requestId);
+      console.log("Seat ID:", seatId);
+      console.log("Status:", status);
+
+      if (!window.confirm(`Are you sure you want to delete this seat ${status}?`)) {
+        return;
+      }
+
+      if (status === "Approved") {
+        const unassignResponse = await fetch(`http://localhost:8080/api/seats/${seatId}/unassign`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+        });
+  
+        if (!unassignResponse.ok) throw new Error("Failed to unassign seat");
+      }
+  
+      // to update the request status
       const response = await fetch(
         `http://localhost:8080/api/seat-unassign-requests/update/${requestId}/${status}`,
         {
@@ -94,20 +131,24 @@ const Dashboard = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-
+  
       if (!response.ok) throw new Error("Failed to update unassign request");
-
+  
       alert(`Unassign request ${status.toLowerCase()} successfully!`);
       setUnassignRequests(unassignRequests.filter(req => req.id !== requestId));
+      window.location.reload(); 
+
     } catch (error) {
       console.error("Error:", error);
     }
   };
+  
 
   const deleteLab = async () => {
     if (!window.confirm("Are you sure you want to delete this lab?")) {
       return;
     }
+
     try {
       const response = await fetch(`/api/labs/${labId}`, {
         method: "DELETE",
@@ -124,6 +165,8 @@ const Dashboard = () => {
       alert("Failed to delete lab.");
     }
   };
+
+  
 
   return (
     <div className={styles.container}>
@@ -177,12 +220,20 @@ const Dashboard = () => {
                             <b>{req.studentName}</b> ({req.studentEmail}) requested a seat
                           </span>
                           <div className={styles.buttonContainer}>
-                            <button
+                            {/* <button
                               className={styles.approveButton}
                               onClick={() => handleRequestAction(req.id, "Approved")}
                             >
                               Approve
-                            </button>
+                            </button> */}
+                            <button
+                              className={styles.approveButton}
+                              onClick={() => {
+                                alert("Seat can be alloted for this student, by clicking any free seat in the layout");
+                              }}
+                            >
+                              Approve
+                            </button> 
                             <button
                               className={styles.rejectButton}
                               onClick={() => handleRequestAction(req.id, "Rejected")}
@@ -210,13 +261,13 @@ const Dashboard = () => {
                           <div className={styles.buttonContainer}>
                             <button
                               className={styles.approveButton}
-                              onClick={() => handleUnassignRequestAction(req.id, "Approved")}
+                              onClick={() => handleUnassignRequestAction(req.id, req.seat.id,"Approved")}
                             >
                               Approve
                             </button>
                             <button
                               className={styles.rejectButton}
-                              onClick={() => handleUnassignRequestAction(req.id, "Rejected")}
+                              onClick={() => handleUnassignRequestAction(req.id, req.seat.id, "Rejected")}
                             >
                               Reject
                             </button>
