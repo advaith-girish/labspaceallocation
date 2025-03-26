@@ -2,50 +2,82 @@ package com.selab.labspace.controller;
 
 import com.jcraft.jsch.*;
 import com.selab.labspace.model.ServerUser;
+import com.selab.labspace.model.User;
 import com.selab.labspace.service.ServerUserService;
+import com.selab.labspace.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/server")
 public class ServerMonitoringController {
 
     private final ServerUserService serverUserService;
+    private final UserService userService;
     private static final double CPU_THRESHOLD = 80.0;
 
-    public ServerMonitoringController(ServerUserService serverUserService) {
+    public ServerMonitoringController(ServerUserService serverUserService, UserService userService) {
         this.serverUserService = serverUserService;
+        this.userService = userService;
     }
 
     @GetMapping("/stats")
-    public Map<String, Map<String, String>> getAllServerStats() {
-        Map<String, Map<String, String>> allStats = new HashMap<>();
+public Map<String, Map<String, String>> getServerStatsForUser(@RequestParam(required = false) Long userId) {
+    Map<String, Map<String, String>> allStats = new HashMap<>();
 
-        List<ServerUser> serverUsers = serverUserService.getAllServerUsers();
-        for (ServerUser user : serverUsers) {
-            Map<String, String> stats = getServerStats(user);
-            stats.put("ip", user.getIpAddress());
-            stats.put("username", user.getUsername());
-            stats.put("lab", user.getLab().getName()); // Fetching Lab Name
-
-            try {
-                double cpuUsage = Double.parseDouble(stats.get("cpu"));
-                if (cpuUsage > CPU_THRESHOLD) {
-                    stats.put("warning", "High CPU usage detected!");
-                }
-            } catch (NumberFormatException e) {
-                stats.put("cpu", "N/A");
-            }
-
-            allStats.put(user.getIpAddress(), stats);
-        }
+    if (userId == null) {
+        System.out.println("❌ No userId provided. Returning empty response.");
         return allStats;
     }
+
+    Optional<User> userOpt = userService.getUserById(userId);
+    if (userOpt.isEmpty()) {
+        System.out.println("❌ User with ID " + userId + " not found in the database.");
+        return allStats;
+    }
+
+    User user = userOpt.get();
+    System.out.println("✅ User Found: " + user.getName() + ", Role: " + user.getRole());
+
+    List<ServerUser> serverUsers;
+    if (user.getRole().name().equals("ADMIN")) {
+        serverUsers = serverUserService.getAllServerUsers();
+        System.out.println("🔍 ADMIN detected. Fetching all server users. Count: " + serverUsers.size());
+    } else if (user.getRole().name().equals("LAB_ADMIN")) { // FIXED ENUM COMPARISON
+        serverUsers = serverUserService.getUsersByLabAdmin(user.getId());
+        System.out.println("🔍 LAB_ADMIN detected. Fetching servers for their labs. Count: " + serverUsers.size());
+    } else {
+        System.out.println("❌ Unauthorized role: " + user.getRole().name());
+        return allStats;
+    }
+    
+    
+
+    if (serverUsers.isEmpty()) {
+        System.out.println("⚠️ No server users found for this user.");
+    }
+
+    for (ServerUser serverUser : serverUsers) {
+        Map<String, String> stats = getServerStats(serverUser);
+        stats.put("ip", serverUser.getIpAddress());
+        stats.put("username", serverUser.getUsername());
+        stats.put("lab", serverUser.getLab().getName());
+
+        System.out.println("✅ Added Server: " + serverUser.getIpAddress() + " (Lab: " + serverUser.getLab().getName() + ")");
+
+        allStats.put(serverUser.getIpAddress(), stats);
+    }
+
+    return allStats;
+}
+
 
     private Map<String, String> getServerStats(ServerUser user) {
         Map<String, String> stats = new HashMap<>();

@@ -21,4 +21,8 @@ public class ServerUserService {
     public List<ServerUser> getAllServerUsers() {
         return serverUserRepository.findAll();
     }
+
+    public List<ServerUser> getUsersByLabAdmin(Long adminId) {
+        return serverUserRepository.findByLabAdmin(adminId);
+    }
 }

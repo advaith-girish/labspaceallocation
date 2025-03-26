@@ -8,11 +8,22 @@ const ServerMonitoring = () => {
   const [toggles, setToggles] = useState({ cpu: true, memory: true, disk: true });
   const [serverStats, setServerStats] = useState({});
   const [warnings, setWarnings] = useState([]);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+
+    if (!loggedInUser || !loggedInUser.id) {
+      console.error("User not logged in or missing ID.");
+      navigate("/login");
+      return;
+    }
+
+    setUser(loggedInUser);
+
     const fetchStats = () => {
-      fetch("http://localhost:8080/api/server/stats")
+      fetch(`http://localhost:8080/api/server/stats?userId=${loggedInUser.id}`)
         .then((res) => res.json())
         .then((data) => {
           setServerStats(data);
@@ -22,7 +33,7 @@ const ServerMonitoring = () => {
               .map(([ip, stats]) => ({
                 ip,
                 username: stats.username,
-                lab: stats.lab, // New lab field
+                lab: stats.lab,
                 cpu: stats.cpu,
                 message: stats.warning,
               }))
@@ -36,6 +47,8 @@ const ServerMonitoring = () => {
     return () => clearInterval(interval);
   }, []);
 
+  if (!user) return <p>Loading...</p>;
+
   return (
     <div className="server-monitoring">
       <button onClick={() => navigate("/")}>Go Home</button>
@@ -47,7 +60,7 @@ const ServerMonitoring = () => {
             <div key={index} className="warning-box">
               ⚠️ <strong>{warning.message}</strong>
               <br />
-              Lab: {warning.lab || "Unknown"} {/* Display Lab Name */}
+              Lab: {warning.lab || "Unknown"}
               <br />
               User: {warning.username}
               <br />
@@ -74,7 +87,7 @@ const ServerMonitoring = () => {
           <tbody>
             {Object.entries(serverStats).map(([ip, stats]) => (
               <tr key={ip}>
-                <td>{stats.lab || "Unknown"}</td> {/* Display Lab Name */}
+                <td>{stats.lab || "Unknown"}</td>
                 <td>{ip}</td>
                 <td>{stats.username || "Unknown"}</td>
                 {toggles.cpu && <td>{stats.cpu || "N/A"}</td>}
