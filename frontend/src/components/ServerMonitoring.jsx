@@ -51,7 +51,7 @@ const ServerMonitoring = () => {
 
   return (
     <div className="server-monitoring">
-      <button onClick={() => navigate("/")}>Go Home</button>
+      <button className="gohomebutton" onClick={() => navigate("/")}>Go Home</button>
       <h1>Server Monitoring</h1>
 
       {warnings.length > 0 && (
