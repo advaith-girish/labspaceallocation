@@ -1,4 +1,3 @@
-
 package com.selab.labspace.model;
 
 import jakarta.persistence.*;
@@ -6,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -27,6 +27,11 @@ public class Lab {
     @OneToMany(mappedBy = "lab", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties({ "lab" }) // Prevents recursion issues, allows seats serialization
     private Set<Seat> seats = new HashSet<>();
+
+    // One Lab can have multiple server users
+    @OneToMany(mappedBy = "lab", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("lab-server-users") // Allows serialization
+    private Set<ServerUser> serverUsers = new HashSet<>();
 
     // Many Labs can be managed by one User (Admin)
     @ManyToOne
@@ -69,13 +74,11 @@ public class Lab {
         this.location = location;
     }
 
-    public Set<Seat> getSeats() {
-        return seats;
-    }
+    public Set<Seat> getSeats() { return seats; }
+    public void setSeats(Set<Seat> seats) { this.seats = seats; }
 
-    public void setSeats(Set<Seat> seats) {
-        this.seats = seats;
-    }
+    public Set<ServerUser> getServerUsers() { return serverUsers; }
+    public void setServerUsers(Set<ServerUser> serverUsers) { this.serverUsers = serverUsers; }
 
     public User getAdmin() {
         return admin;
