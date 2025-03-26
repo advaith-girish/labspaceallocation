@@ -33,35 +33,23 @@ public Map<String, Map<String, String>> getServerStatsForUser(@RequestParam(requ
     Map<String, Map<String, String>> allStats = new HashMap<>();
 
     if (userId == null) {
-        System.out.println("❌ No userId provided. Returning empty response.");
         return allStats;
     }
 
     Optional<User> userOpt = userService.getUserById(userId);
     if (userOpt.isEmpty()) {
-        System.out.println("❌ User with ID " + userId + " not found in the database.");
         return allStats;
     }
 
     User user = userOpt.get();
-    System.out.println("✅ User Found: " + user.getName() + ", Role: " + user.getRole());
-
     List<ServerUser> serverUsers;
+
     if (user.getRole().name().equals("ADMIN")) {
         serverUsers = serverUserService.getAllServerUsers();
-        System.out.println("🔍 ADMIN detected. Fetching all server users. Count: " + serverUsers.size());
-    } else if (user.getRole().name().equals("LAB_ADMIN")) { // FIXED ENUM COMPARISON
+    } else if (user.getRole().name().equals("LAB_ADMIN")) {
         serverUsers = serverUserService.getUsersByLabAdmin(user.getId());
-        System.out.println("🔍 LAB_ADMIN detected. Fetching servers for their labs. Count: " + serverUsers.size());
     } else {
-        System.out.println("❌ Unauthorized role: " + user.getRole().name());
         return allStats;
-    }
-    
-    
-
-    if (serverUsers.isEmpty()) {
-        System.out.println("⚠️ No server users found for this user.");
     }
 
     for (ServerUser serverUser : serverUsers) {
@@ -70,13 +58,22 @@ public Map<String, Map<String, String>> getServerStatsForUser(@RequestParam(requ
         stats.put("username", serverUser.getUsername());
         stats.put("lab", serverUser.getLab().getName());
 
-        System.out.println("✅ Added Server: " + serverUser.getIpAddress() + " (Lab: " + serverUser.getLab().getName() + ")");
+        // ✅ Add CPU threshold warning
+        try {
+            double cpuUsage = Double.parseDouble(stats.get("cpu"));
+            if (cpuUsage > CPU_THRESHOLD) {
+                stats.put("warning", "⚠️ High CPU usage detected! (" + cpuUsage + "%)");
+            }
+        } catch (NumberFormatException e) {
+            stats.put("cpu", "N/A"); // Fallback if parsing fails
+        }
 
         allStats.put(serverUser.getIpAddress(), stats);
     }
 
     return allStats;
 }
+
 
 
     private Map<String, String> getServerStats(ServerUser user) {
