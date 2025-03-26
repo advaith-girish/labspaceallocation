@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
-
 import java.util.List;
 
 @RestController
@@ -22,27 +21,28 @@ public class ServerUserController {
         this.labService = labService;
     }
 
-
     @GetMapping("/lab/{labId}")
     public ResponseEntity<List<ServerUser>> getServerUsersByLab(@PathVariable int labId) {
         return ResponseEntity.ok(serverUserService.getUsersByLabId(labId));
     }
+
     @PostMapping("/add")
-public ResponseEntity<?> addServerUser(@RequestBody ServerUser newUser) {
-    if (newUser.getLab() == null || newUser.getLab().getId() == null) {
-        return ResponseEntity.badRequest().body("Error: Lab ID is required.");
+    public ResponseEntity<?> addServerUser(@RequestBody ServerUser newUser) {
+        if (newUser.getLab() == null || newUser.getLab().getId() == null) {
+            return ResponseEntity.badRequest().body("Error: Lab ID is required.");
+        }
+
+        Optional<Lab> labOpt = labService.getLabById(newUser.getLab().getId());
+        if (labOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: Lab ID does not exist.");
+        }
+
+        newUser.setLab(labOpt.get());
+        ServerUser savedUser = serverUserService.addServerUser(newUser);
+        return ResponseEntity.ok(savedUser);
     }
 
-    Optional<Lab> labOpt = labService.getLabById(newUser.getLab().getId());
-    if (labOpt.isEmpty()) {
-        return ResponseEntity.badRequest().body("Error: Lab ID does not exist.");
-    }
-
-    newUser.setLab(labOpt.get());
-    ServerUser savedUser = serverUserService.addServerUser(newUser);
-    return ResponseEntity.ok(savedUser);
-}
-@DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteServerUserById(@PathVariable Long id) {
         boolean deleted = serverUserService.deleteServerUserById(id);
         if (deleted) {
@@ -52,7 +52,7 @@ public ResponseEntity<?> addServerUser(@RequestBody ServerUser newUser) {
         }
     }
 
-    // ✅ Delete a Server User by IP Address
+    //Delete a Server User by IP Address
     @DeleteMapping("/delete-by-ip/{ipAddress}")
     public ResponseEntity<String> deleteServerUserByIp(@PathVariable String ipAddress) {
         boolean deleted = serverUserService.deleteServerUserByIp(ipAddress);
@@ -61,6 +61,22 @@ public ResponseEntity<?> addServerUser(@RequestBody ServerUser newUser) {
         } else {
             return ResponseEntity.badRequest().body("Error: Server user with IP " + ipAddress + " not found.");
         }
+    }
+
+    @PostMapping("/add-bulk")
+    public ResponseEntity<String> addBulkServerUsers(@RequestBody List<ServerUser> serverUsers) {
+        if (serverUsers.isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: No server users provided.");
+        }
+
+        for (ServerUser user : serverUsers) {
+            if (user.getLab() == null || user.getLab().getId() == null) {
+                return ResponseEntity.badRequest().body("Error: Each server user must have a valid lab ID.");
+            }
+        }
+
+        serverUserService.addBulkServerUsers(serverUsers);
+        return ResponseEntity.ok("All server users added successfully.");
     }
 
 }

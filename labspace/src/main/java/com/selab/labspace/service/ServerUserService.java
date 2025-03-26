@@ -46,5 +46,9 @@ public class ServerUserService {
         }
         return false;
     }
+    public void addBulkServerUsers(List<ServerUser> serverUsers) {
+        serverUserRepository.saveAll(serverUsers);
+    }
+    
     
 }

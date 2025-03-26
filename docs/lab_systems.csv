@@ -1,6 +1,5 @@
 IP,Username,Password
-192.168.1.101,admin,password123
-192.168.1.102,user1,securepass
-192.168.1.103,user2,password321
-192.168.1.104,tech,password456
-192.168.1.105,guest,guestpass
+172.12.12.21,adi,1234
+172.12.12.10,adi,1234
+172.12.12.98,adi,1234
+172.12.12.55,adi,1234
