@@ -16,19 +16,23 @@ const ServerMonitoring = () => {
         .then((res) => res.json())
         .then((data) => {
           setServerStats(data);
-          setWarnings(Object.entries(data)
-            .filter(([_, stats]) => stats.warning)
-            .map(([ip, stats]) => ({
-              ip, username: stats.username, cpu: stats.cpu, message: stats.warning
-            }))
+          setWarnings(
+            Object.entries(data)
+              .filter(([_, stats]) => stats.warning)
+              .map(([ip, stats]) => ({
+                ip,
+                username: stats.username,
+                lab: stats.lab, // New lab field
+                cpu: stats.cpu,
+                message: stats.warning,
+              }))
           );
         })
         .catch((err) => console.error("Error fetching data:", err));
     };
 
     fetchStats();
-    const interval = setInterval(fetchStats, 5000); // Refresh every 5 seconds
-
+    const interval = setInterval(fetchStats, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -41,11 +45,13 @@ const ServerMonitoring = () => {
         <div className="warning-container">
           {warnings.map((warning, index) => (
             <div key={index} className="warning-box">
-              ⚠️ <strong>{warning.message}</strong>  
+              ⚠️ <strong>{warning.message}</strong>
               <br />
-              User: {warning.username}  
+              Lab: {warning.lab || "Unknown"} {/* Display Lab Name */}
               <br />
-              IP: {warning.ip}  
+              User: {warning.username}
+              <br />
+              IP: {warning.ip}
               <br />
               CPU Usage: {warning.cpu}%
             </div>
@@ -57,6 +63,7 @@ const ServerMonitoring = () => {
         <table className="monitoring-table">
           <thead>
             <tr>
+              <th>Lab Name</th>
               <th>VM IP</th>
               <th>Username</th>
               {toggles.cpu && <th>CPU Usage (%)</th>}
@@ -67,6 +74,7 @@ const ServerMonitoring = () => {
           <tbody>
             {Object.entries(serverStats).map(([ip, stats]) => (
               <tr key={ip}>
+                <td>{stats.lab || "Unknown"}</td> {/* Display Lab Name */}
                 <td>{ip}</td>
                 <td>{stats.username || "Unknown"}</td>
                 {toggles.cpu && <td>{stats.cpu || "N/A"}</td>}
