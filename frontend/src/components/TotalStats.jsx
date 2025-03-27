@@ -95,6 +95,35 @@ const TotalStats = () => {
     return matchesSearch && matchesLab;
   });
 
+  const exportFilteredPDF = () => {
+    if (!filteredSeats || filteredSeats.length === 0) {
+      alert("No filtered data available to export.");
+      return;
+    }
+  
+    const doc = new jsPDF();
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("Filtered Lab Seat Allocations", 14, 15);
+  
+    const tableColumn = ["Lab Name", "Seat Number", "Student Name", "Email"];
+    const tableRows = filteredSeats.map(seat => [
+      seat.labName, seat.seatNumber, seat.studentName || "N/A", seat.email || "N/A"
+    ]);
+  
+    autoTable(doc, {
+      head: [tableColumn],
+      body: tableRows,
+      startY: 25,
+      theme: "grid",
+      styles: { fontSize: 10 },
+      headStyles: { fillColor: [22, 160, 133] }
+    });
+  
+    doc.save("Filtered_Lab_Seat_Allocations.pdf");
+  };
+  
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -116,6 +145,8 @@ const TotalStats = () => {
       <div className={styles.buttons}>
         <button className={styles.exportButton} onClick={exportPDF}>Download PDF</button>
         <button className={styles.exportButton} onClick={exportCSV}>Download CSV</button>
+        <button className={styles.exportButton} onClick={exportFilteredPDF}>Download Filtered PDF</button>
+
       </div>
       <h2><u>Search by Filter</u></h2>
       <br/>
