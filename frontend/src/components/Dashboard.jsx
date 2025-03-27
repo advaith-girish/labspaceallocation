@@ -122,11 +122,11 @@ const Dashboard = () => {
           headers: { "Content-Type": "application/json" },
         });
         <button className={styles.primaryButton}>
-        Add Servers
-      </button>
+          Add Servers
+        </button>
         if (!unassignResponse.ok) throw new Error("Failed to unassign seat");
       }
-  
+
       // to update the request status
       const response = await fetch(
         `http://localhost:8080/api/seat-unassign-requests/update/${requestId}/${status}`,
@@ -137,16 +137,16 @@ const Dashboard = () => {
       );
       labId
       if (!response.ok) throw new Error("Failed to update unassign request");
-  
+
       alert(`Unassign request ${status.toLowerCase()} successfully!`);
       setUnassignRequests(unassignRequests.filter(req => req.id !== requestId));
-      window.location.reload(); 
+      window.location.reload();
 
     } catch (error) {
       console.error("Error:", error);
     }
   };
-  
+
 
   const deleteLab = async () => {
     if (!window.confirm("Are you sure you want to delete this lab?")) {
@@ -170,7 +170,11 @@ const Dashboard = () => {
     }
   };
 
-  
+  function deleteStudents(){
+
+  }
+
+
 
   return (
     <div className={styles.container}>
@@ -194,9 +198,15 @@ const Dashboard = () => {
                   Delete this Lab
                 </button>
               )}
+
+              {(user.role === 'ADMIN' || user.role === 'LAB_ADMIN') && (
+                <button className={styles.rejectButton} style={{padding:'12px'}} onClick={deleteStudents}>
+                  Delete all Students
+                </button>
+              )}
             </div>
 
-            <div className={styles.layoutGrid}> 
+            <div className={styles.layoutGrid}>
               <div className={styles.layoutCard}>
                 <h3>{labName}</h3>
                 <LabLayout seats={seats} labId={labId} />
@@ -204,12 +214,18 @@ const Dashboard = () => {
             </div>
 
             {
-              labType==='Desktop-based' && 
-                <Link to={`/addserver/${labId}`}><button className={styles.primaryButton} style={{marginTop:'20px'}}>
-                  Add Servers
-                </button>
-                </Link>
+              labType === 'Desktop-based' &&
+              <Link to={`/addserver/${labId}`}><button className={styles.primaryButton} style={{ marginTop: '20px' }}>
+                Add Servers
+              </button>
+              </Link>
             }
+
+
+            <Link to={`/addstudentsmass/${labId}`}><button className={styles.primaryButton} style={{ marginTop: '20px', marginLeft: '20px' }}>
+              Add Students
+            </button>
+            </Link>
 
             <button
               className={styles.secondaryButton}
@@ -245,7 +261,7 @@ const Dashboard = () => {
                               }}
                             >
                               Approve
-                            </button> 
+                            </button>
                             <button
                               className={styles.rejectButton}
                               onClick={() => handleRequestAction(req.id, "Rejected")}
@@ -273,7 +289,7 @@ const Dashboard = () => {
                           <div className={styles.buttonContainer}>
                             <button
                               className={styles.approveButton}
-                              onClick={() => handleUnassignRequestAction(req.id, req.seat.id,"Approved")}
+                              onClick={() => handleUnassignRequestAction(req.id, req.seat.id, "Approved")}
                             >
                               Approve
                             </button>
