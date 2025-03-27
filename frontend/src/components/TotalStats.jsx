@@ -9,6 +9,8 @@ const TotalStats = () => {
   const navigate = useNavigate();
   const [labs, setLabs] = useState([]);
   const [allocatedSeats, setAllocatedSeats] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLab, setSelectedLab] = useState("All");
 
   useEffect(() => {
     const fetchLabs = async () => {
@@ -44,34 +46,24 @@ const TotalStats = () => {
     }
   
     const doc = new jsPDF();
-  
-    // Title Styling
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
     doc.text("Lab Seat Allocations", 14, 15);
   
-    // Define table headers
     const tableColumn = ["Lab Name", "Seat Number", "Student Name", "Email"];
-  
-    // Map data into rows
-    const tableRows = allocatedSeats.map((seat) => [
-      seat.labName,
-      seat.seatNumber,
-      seat.studentName || "N/A", // Fallback for missing data
-      seat.email || "N/A",
+    const tableRows = allocatedSeats.map(seat => [
+      seat.labName, seat.seatNumber, seat.studentName || "N/A", seat.email || "N/A"
     ]);
   
-    // Add table
     autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 25,
-      theme: "grid", // Optional: Can use 'striped' or 'plain' as well
+      theme: "grid",
       styles: { fontSize: 10 },
-      headStyles: { fillColor: [22, 160, 133] }, // Custom header color
+      headStyles: { fillColor: [22, 160, 133] }
     });
-  
-    // Save the PDF
+
     doc.save("Lab_Seat_Allocations.pdf");
   };
 
@@ -91,6 +83,18 @@ const TotalStats = () => {
     document.body.removeChild(link);
   };
 
+  // **Filtering Logic**
+  const filteredSeats = allocatedSeats.filter(seat => {
+    const matchesSearch = searchTerm === "" || 
+      seat.studentName.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      seat.email.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      seat.labName.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesLab = selectedLab === "All" || seat.labName === selectedLab;
+
+    return matchesSearch && matchesLab;
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -98,6 +102,7 @@ const TotalStats = () => {
         <button className={styles.backButton} onClick={() => navigate(-1)}>← Back to Dashboard</button>
       </div>
 
+      {/* Summary Stats */}
       <div className={styles.statsSummary}>
         <div className={styles.statCard}><h3>Total Labs</h3><p>{labs.length}</p></div>
         <div className={styles.statCard}><h3>Total Seats</h3><p>{labs.reduce((total, lab) => total + lab.seats.length, 0)}</p></div>
@@ -107,19 +112,40 @@ const TotalStats = () => {
         </div>
       </div>
 
+      {/* Export Buttons */}
       <div className={styles.buttons}>
         <button className={styles.exportButton} onClick={exportPDF}>Download PDF</button>
         <button className={styles.exportButton} onClick={exportCSV}>Download CSV</button>
       </div>
+      <h2><u>Search by Filter</u></h2>
+      <br/>
+      {/* Filters Section */}
+      <div className={styles.filters}>
+        
+        <input
+          type="text"
+          placeholder="Search by name, email, or lab..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchBar}
+        />
+        <select value={selectedLab} onChange={(e) => setSelectedLab(e.target.value)} className={styles.dropdown}>
+          <option value="All">All Labs</option>
+          {labs.map(lab => (
+            <option key={lab.name} value={lab.name}>{lab.name}</option>
+          ))}
+        </select>
+      </div>
 
-      <h2>Allocated Seats ({allocatedSeats.length})</h2>
+      {/* Table */}
+      <h2>Allocated Seats ({filteredSeats.length})</h2>
       <div className={styles.tableContainer}>
         <table className={styles.statsTable}>
           <thead>
             <tr><th>Lab Name</th><th>Seat Number</th><th>Student Name</th><th>Email</th></tr>
           </thead>
           <tbody>
-            {allocatedSeats.length > 0 ? allocatedSeats.map(seat => (
+            {filteredSeats.length > 0 ? filteredSeats.map(seat => (
               <tr key={seat.id}>
                 <td>{seat.labName}</td>
                 <td>{seat.seatNumber}</td>
