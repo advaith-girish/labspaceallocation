@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./ServerMonitoring.css";
 import { useNavigate } from "react-router-dom";
 
-const CPU_THRESHOLD = 80;
-
 const ServerMonitoring = () => {
   const [toggles, setToggles] = useState({ cpu: true, memory: true, disk: true });
   const [serverStats, setServerStats] = useState({});
@@ -71,6 +69,23 @@ const ServerMonitoring = () => {
           ))}
         </div>
       )}
+
+      {/* Toggle Switches */}
+      <div className="toggle-container">
+        {["cpu", "memory", "disk"].map((metric) => (
+          <label key={metric} className="toggle">
+            <span style={{color:'white'}}>{metric.toUpperCase()} Usage</span>
+            <div className="switch">
+              <input
+                type="checkbox"
+                checked={toggles[metric]}
+                onChange={() => setToggles({ ...toggles, [metric]: !toggles[metric] })}
+              />
+              <span className="slider"></span>
+            </div>
+          </label>
+        ))}
+      </div>
 
       <div className="table-container">
         <table className="monitoring-table">

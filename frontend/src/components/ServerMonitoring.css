@@ -1,10 +1,9 @@
-/* ServerMonitoring.css */
 .server-monitoring {
   padding: 2rem;
   background-color: #1a2332;
   min-height: 100vh;
   color: #ecf0f1;
-
+}
 
 h1 {
   text-align: center;
@@ -12,15 +11,6 @@ h1 {
   color: #3498db;
 }
 
-input:checked+.slider {
-  background-color: #3498db;
-}
-
-input:checked+.slider:before {
-  transform: translateX(16px);
-}
-
-}
 .toggle-container {
   display: flex;
   flex-wrap: wrap;
@@ -36,6 +26,7 @@ input:checked+.slider:before {
   background: #2c3e50;
   padding: 0.8rem 1.2rem;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .switch {
@@ -43,6 +34,12 @@ input:checked+.slider:before {
   display: inline-block;
   width: 40px;
   height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
@@ -69,8 +66,15 @@ input:checked+.slider:before {
   border-radius: 50%;
 }
 
+input:checked + .slider {
+  background-color: #3498db;
+}
 
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
 
+/* Table Styles */
 .table-container {
   overflow-x: auto;
   display: flex;
@@ -108,6 +112,7 @@ input:checked+.slider:before {
   background-color: #3b4a5b;
 }
 
+/* Warning Box */
 .warning-container {
   margin: 20px;
   padding: 10px;
@@ -123,9 +128,9 @@ input:checked+.slider:before {
   font-weight: bold;
 }
 
+/* Button */
 .gohomebutton {
   background-color: #3498db;
-  /* Blue color */
   color: white;
   padding: 10px 20px;
   border: none;
@@ -138,14 +143,10 @@ input:checked+.slider:before {
 
 .gohomebutton:hover {
   background-color: #2980b9;
-  /* Darker blue on hover */
   transform: scale(1.05);
-  /* Slight zoom effect */
 }
 
 .gohomebutton:active {
   background-color: #1f6690;
-  /* Even darker blue when clicked */
   transform: scale(0.95);
-  /* Shrinks a little when clicked */
 }
