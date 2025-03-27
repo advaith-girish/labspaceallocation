@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import Papa from "papaparse"; // CSV Parsing Library
 import './styles/AddDesktopLab.css';
+import { useParams } from "react-router-dom";
 
 const AddDesktopLab = () => {
+  const { labId } = useParams();
   const [labData, setLabData] = useState({
-    name: "",
-    location: "",
-    adminEmail: "",
     csvFile: null
   });
 
   const [parsedSystems, setParsedSystems] = useState([]); // Stores parsed CSV data
 
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
+    const { type, files } = e.target;
     if (type === "file") {
       setLabData({ ...labData, csvFile: files[0] });
       parseCSV(files[0]);
-    } else {
-      setLabData({ ...labData, [name]: value });
     }
   };
 
@@ -45,46 +42,31 @@ const AddDesktopLab = () => {
     if (!labData.csvFile) return alert("Please upload a CSV file");
 
     try {
-      // Fetch admin ID
-      const userResponse = await fetch(`/api/users/email/${labData.adminEmail}`);
-      const userData = await userResponse.json();
-      if (!userData.id) throw new Error("Admin not found");
-      const adminId = userData.id;
+      for (const system of parsedSystems) {
+        const serverUserPayload = {
+          ipAddress: system.IP,
+          username: system.Username,
+          password: system.Password,
+          lab: { id: labId } // Attach correct lab ID
+        };
 
-      // Create the Lab
-      const labResponse = await fetch("/api/labs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: labData.name,
-          location: labData.location,
-          labType: "Desktop-based",
-          admin: { id: adminId },
-        }),
-      });
+        console.log("Sending server user:", serverUserPayload);
 
-      const labDataResponse = await labResponse.json();
-      const labId = labDataResponse.id;
+        const serverResponse = await fetch("/api/server-users/add", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(serverUserPayload),
+        });
 
-      // Attach systems to Lab
-      const systemsPayload = parsedSystems.map(system => ({
-        ip: system.IP,
-        username: system.Username,
-        password: system.Password,
-        lab: { id: labId },
-      }));
+        if (!serverResponse.ok) {
+          throw new Error(`Failed to add server user with IP: ${system.IP}`);
+        }
+      }
 
-      // Send systems data to API
-      await fetch("/api/systems", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(systemsPayload),
-      });
-
-      alert("Lab and systems added successfully!");
+      alert("Lab and server users added successfully!");
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to add lab or systems.");
+      alert("Failed to add lab or server users.");
     }
   };
 
@@ -93,20 +75,6 @@ const AddDesktopLab = () => {
       <div className="add-lab-form">
         <h2>Add New Desktop-Based Lab</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Lab Name</label>
-            <input type="text" name="name" placeholder="Enter lab name" value={labData.name} onChange={handleChange} required />
-          </div>
-
-          <div className="form-group">
-            <label>Location</label>
-            <input type="text" name="location" placeholder="Enter location" value={labData.location} onChange={handleChange} required />
-          </div>
-
-          <div className="form-group">
-            <label>Admin Email</label>
-            <input type="email" name="adminEmail" placeholder="Enter admin email" value={labData.adminEmail} onChange={handleChange} required />
-          </div>
 
           <div className="form-group">
             <label>Upload CSV</label>

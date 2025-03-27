@@ -29,7 +29,7 @@ public class ServerMonitoringController {
     }
 
     @GetMapping("/stats")
-public Map<String, Map<String, String>> getServerStatsForUser(@RequestParam(required = false) Long userId) {
+    public Map<String, Map<String, String>> getServerStatsForUser(@RequestParam(required = false) Long userId) {
     Map<String, Map<String, String>> allStats = new HashMap<>();
 
     if (userId == null) {
@@ -58,7 +58,7 @@ public Map<String, Map<String, String>> getServerStatsForUser(@RequestParam(requ
         stats.put("username", serverUser.getUsername());
         stats.put("lab", serverUser.getLab().getName());
 
-        // ✅ Add CPU threshold warning
+        // Add CPU threshold warning
         try {
             double cpuUsage = Double.parseDouble(stats.get("cpu"));
             if (cpuUsage > CPU_THRESHOLD) {

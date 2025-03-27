@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import styles from './Dashboard.module.css';
 import Sidebar from './Sidebar';
 import LabLayout from './LabLayout';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const Dashboard = () => {
   const { id: labId } = useParams();
   const [activeMenu, setActiveMenu] = useState('LABLAYOUT');
   const [labName, setLabName] = useState('Loading...');
   const [seats, setSeats] = useState([]);
+  const [labType, setLabType] = useState('');
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unassignRequests, setUnassignRequests] = useState([]);
@@ -24,6 +25,7 @@ const Dashboard = () => {
 
         const data = await response.json();
         setLabName(data.name || 'Unknown Lab');
+        setLabType(data.labType);
       } catch (error) {
         console.error('Error fetching lab details:', error);
         setLabName('Error Loading Lab');
@@ -119,7 +121,9 @@ const Dashboard = () => {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
         });
-  
+        <button className={styles.primaryButton}>
+        Add Servers
+      </button>
         if (!unassignResponse.ok) throw new Error("Failed to unassign seat");
       }
   
@@ -131,7 +135,7 @@ const Dashboard = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-  
+      labId
       if (!response.ok) throw new Error("Failed to update unassign request");
   
       alert(`Unassign request ${status.toLowerCase()} successfully!`);
@@ -192,12 +196,20 @@ const Dashboard = () => {
               )}
             </div>
 
-            <div className={styles.layoutGrid}>
+            <div className={styles.layoutGrid}> 
               <div className={styles.layoutCard}>
                 <h3>{labName}</h3>
                 <LabLayout seats={seats} labId={labId} />
               </div>
             </div>
+
+            {
+              labType==='Desktop-based' && 
+                <Link to={`/addserver/${labId}`}><button className={styles.primaryButton} style={{marginTop:'20px'}}>
+                  Add Servers
+                </button>
+                </Link>
+            }
 
             <button
               className={styles.secondaryButton}

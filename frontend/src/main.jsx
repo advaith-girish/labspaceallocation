@@ -35,7 +35,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/forgot-password" element={(<h1>Contact Scene Admin : PGB</h1>)} />
         <Route path="/addlabadmin" element={<AddLabAdmin toAdd={'LAB_ADMIN'}/>} />
         <Route path="/addstudent" element={<AddLabAdmin toAdd={'STUDENT'}/>} />
-        <Route path="/addserver" element={<AddDesktopLab/>} />
+        <Route path="/addserver/:labId" element={<AddDesktopLab/>} />
       
       </Routes>
     </Router>
