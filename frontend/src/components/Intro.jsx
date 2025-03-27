@@ -33,8 +33,7 @@ function Intro() {
                     <div className='card-container'> 
                     <img src='/assets/6815535.webp' alt="IIITD" />
                     <div className="card-grid">
-                        <div className="card"><h3>Overview Matrix</h3></div>
-                        <div className="card"><h3>Lab Space Management</h3></div>
+                    <Link to="/lablayout" className="card"><h3>Lab Space Allocation</h3></Link>
                         <Link to="/totalstats" className="card"><h3>Allocations</h3></Link>
                         <Link to="/notifications" className="card"><h3>Notifications</h3></Link>
                         <Link to="/server-monitoring" className="card"><h3>Server Monitoring</h3></Link>
